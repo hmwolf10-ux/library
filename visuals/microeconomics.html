@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microeconomics — Visual Guide</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 900px; margin: 0 auto; padding: 16px 16px 40px; color: #1a1a1a; line-height: 1.6; background: #fff; }
+  h1.page { font-size: 2em; border-bottom: 3px solid #1a1a1a; padding-bottom: 0.3em; margin-bottom: 0.2em; }
+  h1 { font-size: 1.5em; margin-top: 2.2em; border-bottom: 2px solid #e5e5e5; padding-bottom: 0.25em; }
+  h2 { font-size: 1.1em; margin-top: 1em; color: #222; }
+  p { margin: 0.45em 0; font-size: 0.95em; }
+  .intro { color: #444; margin-bottom: 4px; }
+  .chart-box { background: #fafafa; border: 1px solid #e5e5e5; border-radius: 8px; padding: 18px 22px; margin: 14px 0 20px; }
+  .chart-wrap { position: relative; height: 290px; }
+  .chart-wrap-sm { position: relative; height: 240px; }
+  .chart-wrap-lg { position: relative; height: 340px; }
+  .tabs { display: flex; gap: 7px; margin-bottom: 12px; flex-wrap: wrap; }
+  .tab { padding: 5px 14px; border: 1px solid #ccc; border-radius: 18px; cursor: pointer; font-size: 0.85em; background: #fff; transition: all 0.12s; user-select: none; }
+  .tab.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+  .note { background: #f4f4f4; border-left: 3px solid #bbb; padding: 8px 14px; margin: 8px 0; font-size: 0.88em; }
+  .note strong { color: #111; }
+  table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 0.89em; }
+  th, td { border: 1px solid #e0e0e0; padding: 7px 11px; text-align: left; }
+  th { background: #f4f4f4; font-weight: 600; }
+  tr:nth-child(even) td { background: #fafafa; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .nav { font-size: 0.83em; color: #888; margin-bottom: 1.5em; }
+  .nav a { color: #555; text-decoration: none; }
+  .nav a:hover { text-decoration: underline; }
+  .label { font-size: 0.78em; color: #777; margin-top: 2px; }
+</style>
+</head>
+<body>
+
+
+<h1 class="page">Microeconomics</h1>
+<p class="intro">How individual markets work — prices, quantities, costs, and why outcomes differ across market structures. These graphs are the foundation of almost all economic reasoning.</p>
+
+<!-- ===== 1. SUPPLY & DEMAND ===== -->
+<h1>1. Supply &amp; Demand</h1>
+<p class="intro">The core model of markets. Price and quantity settle at equilibrium — where the amount buyers want equals the amount sellers offer. Every other micro graph builds on this.</p>
+
+<div class="chart-box">
+  <div class="tabs" id="sd-tabs">
+    <div class="tab active" onclick="setSD('base',this)">Equilibrium</div>
+    <div class="tab" onclick="setSD('demand-right',this)">Demand ↑</div>
+    <div class="tab" onclick="setSD('demand-left',this)">Demand ↓</div>
+    <div class="tab" onclick="setSD('supply-right',this)">Supply ↑</div>
+    <div class="tab" onclick="setSD('supply-left',this)">Supply ↓</div>
+    <div class="tab" onclick="setSD('floor',this)">Price Floor</div>
+    <div class="tab" onclick="setSD('ceiling',this)">Price Ceiling</div>
+  </div>
+  <div class="chart-wrap"><canvas id="sdChart"></canvas></div>
+  <p id="sdMsg" class="note" style="margin-top:8px;"></p>
+  <h2>What makes each curve shift (not slide)?</h2>
+  <div class="two-col">
+    <table>
+      <tr><th colspan="2">Demand Shifters</th></tr>
+      <tr><td>Income rises</td><td>→ Demand shifts right (normal goods)</td></tr>
+      <tr><td>Substitute price rises</td><td>→ Demand shifts right</td></tr>
+      <tr><td>Complement price rises</td><td>→ Demand shifts left</td></tr>
+      <tr><td>Preferences change</td><td>→ Either direction</td></tr>
+      <tr><td>Expectations of higher price</td><td>→ Buy now → right shift</td></tr>
+    </table>
+    <table>
+      <tr><th colspan="2">Supply Shifters</th></tr>
+      <tr><td>Input costs fall</td><td>→ Supply shifts right</td></tr>
+      <tr><td>Technology improves</td><td>→ Supply shifts right</td></tr>
+      <tr><td>More producers enter</td><td>→ Supply shifts right</td></tr>
+      <tr><td>Government subsidy</td><td>→ Supply shifts right</td></tr>
+      <tr><td>Tax on producers</td><td>→ Supply shifts left</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ===== 2. PRICE ELASTICITY ===== -->
+<h1>2. Price Elasticity of Demand</h1>
+<p class="intro">Elasticity measures HOW MUCH quantity changes when price changes. Same price increase — wildly different outcomes depending on whether demand is elastic or inelastic.</p>
+
+<div class="chart-box">
+  <div class="tabs">
+    <div class="tab active" onclick="setElast('compare',this)">Elastic vs Inelastic</div>
+    <div class="tab" onclick="setElast('perfectly-inelastic',this)">Perfectly Inelastic</div>
+    <div class="tab" onclick="setElast('perfectly-elastic',this)">Perfectly Elastic</div>
+    <div class="tab" onclick="setElast('unit',this)">Unit Elastic</div>
+  </div>
+  <div class="chart-wrap"><canvas id="elastChart"></canvas></div>
+  <p id="elastMsg" class="note" style="margin-top:8px;"></p>
+  <table>
+    <tr><th>Type</th><th>|PED|</th><th>Curve shape</th><th>Examples</th><th>Revenue effect of price hike</th></tr>
+    <tr><td>Perfectly inelastic</td><td>0</td><td>Vertical</td><td>Insulin, salt</td><td>Revenue rises proportionally</td></tr>
+    <tr><td>Inelastic</td><td>0 – 1</td><td>Steep</td><td>Gasoline, cigarettes, necessities</td><td>Revenue rises</td></tr>
+    <tr><td>Unit elastic</td><td>1</td><td>Hyperbola</td><td>Many goods at midpoint</td><td>Revenue unchanged</td></tr>
+    <tr><td>Elastic</td><td>&gt; 1</td><td>Flat</td><td>Luxury cars, vacations, brand goods with substitutes</td><td>Revenue falls</td></tr>
+    <tr><td>Perfectly elastic</td><td>∞</td><td>Horizontal</td><td>Commodity in perfect competition</td><td>Any price hike → zero buyers</td></tr>
+  </table>
+</div>
+
+<!-- ===== 3. CONSUMER & PRODUCER SURPLUS ===== -->
+<h1>3. Consumer &amp; Producer Surplus</h1>
+<p class="intro">The "value" created by trade. Consumer surplus = what buyers were willing to pay minus what they actually paid. Producer surplus = what sellers received minus their minimum acceptable price. Total welfare = both triangles combined.</p>
+
+<div class="chart-box">
+  <div class="tabs">
+    <div class="tab active" onclick="setSurplus('base',this)">Free Market</div>
+    <div class="tab" onclick="setSurplus('tax',this)">With Tax (DWL)</div>
+    <div class="tab" onclick="setSurplus('monopoly',this)">Monopoly Restriction</div>
+  </div>
+  <div class="chart-wrap"><canvas id="surplusChart"></canvas></div>
+  <p id="surplusMsg" class="note" style="margin-top:8px;"></p>
+</div>
+
+<!-- ===== 4. COST CURVES ===== -->
+<h1>4. Cost Curves — The Heart of Production Theory</h1>
+<p class="intro">Every firm faces a set of cost curves. These determine when it's profitable to produce, how much to produce, and when to shut down. Knowing how to read these is fundamental to understanding firm behavior.</p>
+
+<div class="chart-box">
+  <div class="tabs">
+    <div class="tab active" onclick="setCost('all',this)">All Curves</div>
+    <div class="tab" onclick="setCost('mc-atc',this)">MC & ATC Only</div>
+    <div class="tab" onclick="setCost('avc',this)">Add AVC</div>
+    <div class="tab" onclick="setCost('afc',this)">Add AFC</div>
+  </div>
+  <div class="chart-wrap"><canvas id="costChart"></canvas></div>
+  <div class="note">
+    <strong>Key rules:</strong> (1) MC always crosses AVC and ATC at their minimum points. (2) ATC - AVC = AFC (the vertical gap narrows as quantity rises — fixed costs spread out). (3) When MC &lt; ATC, ATC is falling. When MC &gt; ATC, ATC is rising. This is pure math — not econ intuition.
+  </div>
+  <table>
+    <tr><th>Curve</th><th>What it measures</th><th>Shape & why</th></tr>
+    <tr><td>AFC (Average Fixed Cost)</td><td>Fixed costs ÷ quantity</td><td>Downward hyperbola — same fixed cost spread over more units = lower per unit</td></tr>
+    <tr><td>AVC (Average Variable Cost)</td><td>Variable costs ÷ quantity</td><td>U-shaped — initially falls (specialization), then rises (diminishing returns)</td></tr>
+    <tr><td>ATC (Average Total Cost)</td><td>Total cost ÷ quantity</td><td>U-shaped, above AVC by exactly AFC</td></tr>
+    <tr><td>MC (Marginal Cost)</td><td>Cost of producing one more unit</td><td>U-shaped, crosses AVC and ATC at their minimums</td></tr>
+  </table>
+</div>
+
+<!-- ===== 5. PROFIT MAXIMIZATION ===== -->
+<h1>5. Profit Maximization — MR = MC</h1>
+<p class="intro">Every firm maximizes profit by producing the quantity where Marginal Revenue = Marginal Cost. If MR &gt; MC, produce more (each unit adds to profit). If MR &lt; MC, produce less (each unit costs more than it earns). This rule applies to ALL market structures.</p>
+
+<div class="chart-box">
+  <div class="tabs">
+    <div class="tab active" onclick="setProfMax('competitive',this)">Perfect Competition</div>
+    <div class="tab" onclick="setProfMax('monopoly',this)">Monopoly</div>
+    <div class="tab" onclick="setProfMax('shutdown',this)">Shutdown Condition</div>
+  </div>
+  <div class="chart-wrap"><canvas id="profMaxChart"></canvas></div>
+  <p id="profMaxMsg" class="note" style="margin-top:8px;"></p>
+  <table>
+    <tr><th>Rule</th><th>Explanation</th></tr>
+    <tr><td>Produce where MR = MC</td><td>The profit-maximizing quantity. Universal rule across all market structures.</td></tr>
+    <tr><td>Price using the Demand curve</td><td>Find Q* (MR=MC), then go up to the demand curve to find P*. Only relevant in imperfect competition.</td></tr>
+    <tr><td>Profit = (P - ATC) × Q</td><td>If P &gt; ATC: profit. If ATC &gt; P &gt; AVC: loss, but stay open (covering variable costs). If P &lt; AVC: shut down.</td></tr>
+    <tr><td>Short-run shutdown rule</td><td>If P &lt; AVC at the optimal Q, it's cheaper to produce zero (you still lose fixed costs but avoid losing more on variable costs).</td></tr>
+    <tr><td>Long-run exit rule</td><td>If P &lt; ATC, exit the market in the long run (once fixed costs can be avoided).</td></tr>
+  </table>
+</div>
+
+<!-- ===== 6. MARKET STRUCTURES ===== -->
+<h1>6. Market Structures</h1>
+<p class="intro">The four structures differ in number of firms, product differentiation, and pricing power. This determines whether consumers get a good deal or get exploited.</p>
+
+<div class="chart-box">
+  <div class="chart-wrap-sm"><canvas id="mktStructChart"></canvas></div>
+  <table>
+    <tr><th>Structure</th><th>Firms</th><th>Product</th><th>Price control</th><th>Long-run profit</th><th>Examples</th></tr>
+    <tr><td>Perfect Competition</td><td>Many</td><td>Identical</td><td>None (price taker)</td><td>Zero (economic)</td><td>Agricultural commodities, FX</td></tr>
+    <tr><td>Monopolistic Competition</td><td>Many</td><td>Differentiated</td><td>Some</td><td>Zero (long run)</td><td>Restaurants, clothing, haircuts</td></tr>
+    <tr><td>Oligopoly</td><td>Few</td><td>Similar/diff</td><td>Significant</td><td>Positive</td><td>Airlines, phone carriers, cars</td></tr>
+    <tr><td>Monopoly</td><td>One</td><td>Unique</td><td>Total (demand curve)</td><td>Positive (if barriers hold)</td><td>Local utilities, patents, some platforms</td></tr>
+  </table>
+  <div class="note">In perfect competition, P = MR = MC in equilibrium. In a monopoly, P &gt; MR = MC — the monopolist restricts output to raise price, creating deadweight loss. This gap between P and MC is the measure of monopoly power (Lerner Index).</div>
+</div>
+
+<!-- ===== 7. DEADWEIGHT LOSS ===== -->
+<h1>7. Deadweight Loss</h1>
+<p class="intro">Deadweight loss (DWL) is the value destroyed when markets don't reach the efficient quantity. It's the "missing triangle" — trades that would have been mutually beneficial but didn't happen because of a tax, price control, or monopoly restriction.</p>
+
+<div class="chart-box">
+  <div class="tabs">
+    <div class="tab active" onclick="setDWL('tax',this)">Per-unit Tax</div>
+    <div class="tab" onclick="setDWL('monopoly',this)">Monopoly Pricing</div>
+    <div class="tab" onclick="setDWL('price-ceiling',this)">Price Ceiling</div>
+  </div>
+  <div class="chart-wrap"><canvas id="dwlChart"></canvas></div>
+  <p id="dwlMsg" class="note" style="margin-top:8px;"></p>
+</div>
+
+<!-- ===== 8. EXTERNALITIES ===== -->
+<h1>8. Externalities — When Markets Fail</h1>
+<p class="intro">Externalities are costs or benefits that fall on people outside the transaction. The market ignores them, so it produces the wrong quantity. Government intervention (taxes, subsidies, regulation) can correct this.</p>
+
+<div class="chart-box">
+  <div class="tabs">
+    <div class="tab active" onclick="setExt('negative',this)">Negative Externality (e.g. pollution)</div>
+    <div class="tab" onclick="setExt('positive',this)">Positive Externality (e.g. education)</div>
+  </div>
+  <div class="chart-wrap"><canvas id="extChart"></canvas></div>
+  <p id="extMsg" class="note" style="margin-top:8px;"></p>
+  <table>
+    <tr><th>Type</th><th>Market result</th><th>Social optimum</th><th>Fix</th></tr>
+    <tr><td>Negative externality</td><td>Overproduction (market ignores external cost)</td><td>Lower Q, higher P</td><td>Pigouvian tax = MEC (marginal external cost)</td></tr>
+    <tr><td>Positive externality</td><td>Underproduction (market ignores external benefit)</td><td>Higher Q, lower P</td><td>Subsidy = MEB (marginal external benefit)</td></tr>
+  </table>
+</div>
+
+<!-- ===== 9. PRODUCTION POSSIBILITIES FRONTIER ===== -->
+<h1>9. Production Possibilities Frontier (PPF)</h1>
+<p class="intro">Shows the maximum combinations of two goods an economy can produce given fixed resources and technology. Illustrates opportunity cost, scarcity, efficiency, and growth.</p>
+
+<div class="chart-box">
+  <div class="tabs">
+    <div class="tab active" onclick="setPPF('base',this)">Base PPF</div>
+    <div class="tab" onclick="setPPF('growth',this)">Economic Growth</div>
+    <div class="tab" onclick="setPPF('linear',this)">Constant Opportunity Cost</div>
+  </div>
+  <div class="chart-wrap-sm"><canvas id="ppfChart"></canvas></div>
+  <p id="ppfMsg" class="note" style="margin-top:8px;"></p>
+  <table>
+    <tr><th>Point</th><th>What it means</th></tr>
+    <tr><td>On the curve</td><td>Efficient — using all resources, can't get more of one without sacrificing some of the other</td></tr>
+    <tr><td>Inside the curve</td><td>Inefficient — unemployed resources, recession, war damage</td></tr>
+    <tr><td>Outside the curve</td><td>Currently impossible — requires growth (technology, capital, labor)</td></tr>
+    <tr><td>Bowed outward shape</td><td>Increasing opportunity cost — resources are specialized and not perfectly interchangeable</td></tr>
+    <tr><td>Outward shift</td><td>Economic growth — more resources, better technology, or better institutions</td></tr>
+  </table>
+</div>
+
+<script>
+const CHART_DEFAULTS = {
+  responsive: true, maintainAspectRatio: false,
+  plugins: { legend: { position: 'top', labels: { font: { size: 11 }, boxWidth: 14 } } }
+};
+
+// ===== 1. SUPPLY & DEMAND =====
+let sdChart;
+const Q = Array.from({length:11},(_,i)=>i*10);
+function sdDemand(shift=0) { return Q.map(q => Math.max(0, 100 - q + shift)); }
+function sdSupply(shift=0) { return Q.map(q => Math.max(0, 10 + q + shift)); }
+const sdConfigs = {
+  'base': {
+    msg: 'Equilibrium at P=$55, Q=45 (where the two curves cross). The market naturally moves here — surplus pulls price down, shortage pushes it up.',
+    datasets: () => [
+      {label:'Demand',data:sdDemand(),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},
+      {label:'Supply',data:sdSupply(),borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},
+    ]
+  },
+  'demand-right': {
+    msg: 'Demand shifts RIGHT (income rose, substitute got expensive, etc.). New equilibrium: BOTH price and quantity rise. The supply curve didn\'t move — sellers responded to the higher price along their existing curve.',
+    datasets: () => [
+      {label:'Old Demand',data:sdDemand(),borderColor:'#93c5fd',borderDash:[5,4],tension:0.2,pointRadius:0,fill:false},
+      {label:'New Demand ↑',data:sdDemand(20),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},
+      {label:'Supply',data:sdSupply(),borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2},
+    ]
+  },
+  'demand-left': {
+    msg: 'Demand shifts LEFT (income fell, preference changed, substitute got cheaper). New equilibrium: BOTH price and quantity fall.',
+    datasets: () => [
+      {label:'Old Demand',data:sdDemand(),borderColor:'#93c5fd',borderDash:[5,4],tension:0.2,pointRadius:0,fill:false},
+      {label:'New Demand ↓',data:sdDemand(-20),borderColor:'#1d4ed8',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},
+      {label:'Supply',data:sdSupply(),borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2},
+    ]
+  },
+  'supply-right': {
+    msg: 'Supply shifts RIGHT (cheaper inputs, new technology, more producers). New equilibrium: price falls, quantity rises. Great for consumers.',
+    datasets: () => [
+      {label:'Demand',data:sdDemand(),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2},
+      {label:'Old Supply',data:sdSupply(),borderColor:'#fca5a5',borderDash:[5,4],tension:0.2,pointRadius:0,fill:false},
+      {label:'New Supply ↑',data:sdSupply(-20),borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},
+    ]
+  },
+  'supply-left': {
+    msg: 'Supply shifts LEFT (higher input costs, natural disaster, tax). New equilibrium: price rises, quantity falls. Classic supply shock (think OPEC oil embargo).',
+    datasets: () => [
+      {label:'Demand',data:sdDemand(),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2},
+      {label:'Old Supply',data:sdSupply(),borderColor:'#fca5a5',borderDash:[5,4],tension:0.2,pointRadius:0,fill:false},
+      {label:'New Supply ↓',data:sdSupply(20),borderColor:'#b91c1c',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},
+    ]
+  },
+  'floor': {
+    msg: 'Price floor at P=$70 (above equilibrium $55). Quantity supplied (80) > Quantity demanded (30) → SURPLUS of 50 units. Nobody buys at the floor price. Think: minimum wage creates a surplus of labor (unemployment). Rent controls below equilibrium = ceiling (see next).',
+    datasets: () => [
+      {label:'Demand',data:sdDemand(),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2},
+      {label:'Supply',data:sdSupply(),borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2},
+      {label:'Price Floor ($70)',data:Q.map(()=>70),borderColor:'#16a34a',borderDash:[6,3],pointRadius:0,fill:false,borderWidth:2},
+    ]
+  },
+  'ceiling': {
+    msg: 'Price ceiling at P=$35 (below equilibrium $55). Quantity demanded (65) > Quantity supplied (25) → SHORTAGE of 40 units. Think: rent control causes housing shortage. Gas price caps cause lines at the pump.',
+    datasets: () => [
+      {label:'Demand',data:sdDemand(),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2},
+      {label:'Supply',data:sdSupply(),borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2},
+      {label:'Price Ceiling ($35)',data:Q.map(()=>35),borderColor:'#9333ea',borderDash:[6,3],pointRadius:0,fill:false,borderWidth:2},
+    ]
+  }
+};
+function setSD(mode, el) {
+  document.querySelectorAll('#sd-tabs .tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('sdMsg').textContent = sdConfigs[mode].msg;
+  sdChart.data.datasets = sdConfigs[mode].datasets();
+  sdChart.update();
+}
+function initSD() {
+  const ctx = document.getElementById('sdChart').getContext('2d');
+  sdChart = new Chart(ctx, {
+    type:'line', data:{labels:Q, datasets:sdConfigs['base'].datasets()},
+    options:{...CHART_DEFAULTS, scales:{
+      x:{title:{display:true,text:'Quantity'}},
+      y:{title:{display:true,text:'Price ($)'},min:0,max:120}
+    }}
+  });
+  document.getElementById('sdMsg').textContent = sdConfigs['base'].msg;
+}
+
+// ===== 2. ELASTICITY =====
+let elastChart;
+const eP = Array.from({length:11},(_,i)=>i*10);
+function elastConfigs(mode) {
+  if(mode==='compare') return {
+    msg:'Blue (elastic): flat curve, same price hike → large drop in quantity. Red (inelastic): steep curve, same price hike → small drop. Same price, completely different revenue outcomes.',
+    datasets:[
+      {label:'Elastic Demand (|PED|>1)',data:eP.map(p=>Math.max(0,100-p*1.8)),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},
+      {label:'Inelastic Demand (|PED|<1)',data:eP.map(p=>Math.max(0,80-p*0.4)),borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},
+    ]
+  };
+  if(mode==='perfectly-inelastic') return {
+    msg:'Perfectly inelastic: quantity demanded is fixed regardless of price (vertical line). Rare — but insulin approximates this for diabetics. The seller can raise price without losing any buyers.',
+    datasets:[{label:'Perfectly Inelastic',data:[{x:50,y:0},{x:50,y:110}],borderColor:'#dc2626',showLine:true,tension:0,pointRadius:0,fill:false,borderWidth:2.5,type:'scatter'}]
+  };
+  if(mode==='perfectly-elastic') return {
+    msg:'Perfectly elastic: sellers must accept the market price or sell nothing (horizontal line). This is perfect competition — if you charge one cent more, all buyers go elsewhere.',
+    datasets:[{label:'Perfectly Elastic',data:[{x:0,y:50},{x:100,y:50}],borderColor:'#2563eb',showLine:true,tension:0,pointRadius:0,fill:false,borderWidth:2.5,type:'scatter'}]
+  };
+  if(mode==='unit') return {
+    msg:'Unit elastic (|PED|=1): a rectangular hyperbola. Every price-quantity combo gives the same total revenue. A 10% price hike always leads to exactly a 10% quantity drop.',
+    datasets:[{label:'Unit Elastic (P×Q = constant)',data:Array.from({length:19},(_,i)=>{const p=(i+1)*5;return{x:500/p,y:p};}),showLine:true,tension:0.3,pointRadius:0,borderColor:'#7c3aed',fill:false,borderWidth:2.5,type:'scatter'}]
+  };
+}
+let elastMode='compare';
+function setElast(mode,el) {
+  document.querySelectorAll('#elastChart').forEach(()=>{});
+  const tabs = document.getElementById('elastChart').closest('.chart-box').querySelectorAll('.tab');
+  tabs.forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  elastMode=mode;
+  const cfg=elastConfigs(mode);
+  document.getElementById('elastMsg').textContent=cfg.msg;
+  elastChart.data.datasets=cfg.datasets;
+  if(mode==='compare'||mode==='unit') { elastChart.options.scales.x.type='linear'; elastChart.options.scales.x.title.text='Quantity'; elastChart.options.scales.y.title.text='Price ($)'; }
+  elastChart.update();
+}
+function initElast() {
+  const ctx=document.getElementById('elastChart').getContext('2d');
+  const cfg=elastConfigs('compare');
+  elastChart=new Chart(ctx,{type:'line',data:{labels:eP,datasets:cfg.datasets},options:{...CHART_DEFAULTS,scales:{x:{title:{display:true,text:'Quantity'}},y:{title:{display:true,text:'Price ($)'},min:0,max:120}}}});
+  document.getElementById('elastMsg').textContent=cfg.msg;
+}
+
+// ===== 3. SURPLUS =====
+let surplusChart;
+function initSurplus() {
+  const ctx=document.getElementById('surplusChart').getContext('2d');
+  const Qs=Array.from({length:61},(_,i)=>i);
+  const dem=Qs.map(q=>100-q);
+  const sup=Qs.map(q=>10+q);
+  surplusChart=new Chart(ctx,{type:'line',data:{labels:Qs,datasets:[
+    {label:'Demand',data:dem,borderColor:'#2563eb',tension:0,pointRadius:0,fill:false,borderWidth:2},
+    {label:'Supply',data:sup,borderColor:'#dc2626',tension:0,pointRadius:0,fill:false,borderWidth:2},
+    {label:'Consumer Surplus',data:Qs.map(q=>q<=45?Math.max(dem[q],55):null),borderColor:'rgba(37,99,235,0.3)',backgroundColor:'rgba(37,99,235,0.15)',tension:0,pointRadius:0,fill:{target:3,above:'rgba(37,99,235,0.15)'},borderWidth:0},
+    {label:'Producer Surplus',data:Qs.map(q=>q<=45?55:null),borderColor:'rgba(220,38,38,0.3)',backgroundColor:'rgba(220,38,38,0.15)',tension:0,pointRadius:0,fill:{target:1,below:'rgba(220,38,38,0.15)'},borderWidth:0},
+  ]},options:{...CHART_DEFAULTS,scales:{x:{title:{display:true,text:'Quantity'},max:80},y:{title:{display:true,text:'Price ($)'},min:0,max:110}}}});
+  document.getElementById('surplusMsg').textContent='Free market: Consumer surplus (blue triangle) = what buyers were willing to pay above market price. Producer surplus (red triangle) = what sellers received above their minimum. Total welfare is maximized at equilibrium.';
+}
+function setSurplus(mode,el) {
+  const tabs=document.getElementById('surplusChart').closest('.chart-box').querySelectorAll('.tab');
+  tabs.forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  const Qs=Array.from({length:61},(_,i)=>i);
+  const dem=Qs.map(q=>100-q);
+  const sup=Qs.map(q=>10+q);
+  if(mode==='base') {
+    surplusChart.data.datasets=[
+      {label:'Demand',data:dem,borderColor:'#2563eb',tension:0,pointRadius:0,fill:false,borderWidth:2},
+      {label:'Supply',data:sup,borderColor:'#dc2626',tension:0,pointRadius:0,fill:false,borderWidth:2},
+    ];
+    document.getElementById('surplusMsg').textContent='Free market maximizes total surplus. The sum of consumer + producer surplus = total welfare created by all trades.';
+  } else if(mode==='tax') {
+    surplusChart.data.datasets=[
+      {label:'Demand',data:dem,borderColor:'#2563eb',tension:0,pointRadius:0,fill:false,borderWidth:2},
+      {label:'Supply (pre-tax)',data:sup,borderColor:'#fca5a5',borderDash:[4,3],tension:0,pointRadius:0,fill:false},
+      {label:'Supply (post-tax +20)',data:Qs.map(q=>10+q+20),borderColor:'#dc2626',tension:0,pointRadius:0,fill:false,borderWidth:2},
+      {label:'Tax Revenue',data:Qs.map(q=>q<=35?55+20-5:null),borderColor:'rgba(234,179,8,0.3)',backgroundColor:'rgba(234,179,8,0.2)',tension:0,pointRadius:0,fill:{target:1,below:'rgba(234,179,8,0.2)'},borderWidth:0},
+    ];
+    document.getElementById('surplusMsg').textContent='A $20 tax shifts supply left. New equilibrium: P rises to ~$65, Q falls to ~35. Tax revenue = $20 × 35 = $700 (yellow band). The triangle between old and new equilibrium is deadweight loss — trades that would have happened but don\'t, value destroyed.';
+  } else {
+    surplusChart.data.datasets=[
+      {label:'Demand',data:dem,borderColor:'#2563eb',tension:0,pointRadius:0,fill:false,borderWidth:2},
+      {label:'Supply/MC',data:sup,borderColor:'#dc2626',tension:0,pointRadius:0,fill:false,borderWidth:2},
+      {label:'Monopoly MR',data:Qs.map(q=>100-2*q),borderColor:'#9333ea',borderDash:[5,3],tension:0,pointRadius:0,fill:false},
+      {label:'Monopoly Price',data:Qs.map(q=>q<=27?81.5:null),borderColor:'#16a34a',borderDash:[4,3],tension:0,pointRadius:0,fill:false},
+    ];
+    document.getElementById('surplusMsg').textContent='Monopolist sets MR=MC → Q*≈27. Then charges P*≈$73 (from demand curve). Output is lower, price is higher than competitive equilibrium. The triangle of lost welfare is monopoly deadweight loss.';
+  }
+  surplusChart.update();
+}
+
+// ===== 4. COST CURVES =====
+let costChart;
+function getCostData() {
+  const qs=Array.from({length:14},(_,i)=>i+1);
+  const FC=100;
+  const VC=q=>q**3-12*q**2+60*q;
+  const TC=q=>FC+VC(q);
+  const MC=q=>3*q**2-24*q+60;
+  const ATC=q=>TC(q)/q;
+  const AVC=q=>VC(q)/q;
+  const AFC=q=>FC/q;
+  return {qs, MC:qs.map(MC), ATC:qs.map(ATC), AVC:qs.map(AVC), AFC:qs.map(AFC)};
+}
+function setCost(mode,el) {
+  const tabs=document.getElementById('costChart').closest('.chart-box').querySelectorAll('.tab');
+  tabs.forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  const {qs,MC,ATC,AVC,AFC}=getCostData();
+  const allDS=[
+    {label:'MC (Marginal Cost)',data:MC,borderColor:'#dc2626',tension:0.3,pointRadius:3,fill:false,borderWidth:2.5},
+    {label:'ATC (Avg Total Cost)',data:ATC,borderColor:'#2563eb',tension:0.3,pointRadius:2,fill:false,borderWidth:2},
+    {label:'AVC (Avg Variable Cost)',data:AVC,borderColor:'#16a34a',tension:0.3,pointRadius:2,fill:false,borderWidth:2},
+    {label:'AFC (Avg Fixed Cost)',data:AFC,borderColor:'#ca8a04',tension:0.3,pointRadius:2,fill:false,borderWidth:2,borderDash:[5,3]},
+  ];
+  const show = mode==='all'?[0,1,2,3]:mode==='mc-atc'?[0,1]:mode==='avc'?[0,1,2]:[0,1,2,3];
+  costChart.data.labels=qs;
+  costChart.data.datasets=allDS.filter((_,i)=>show.includes(i));
+  costChart.update();
+}
+function initCost() {
+  const {qs,MC,ATC,AVC,AFC}=getCostData();
+  const ctx=document.getElementById('costChart').getContext('2d');
+  costChart=new Chart(ctx,{type:'line',data:{labels:qs,datasets:[
+    {label:'MC',data:MC,borderColor:'#dc2626',tension:0.3,pointRadius:3,fill:false,borderWidth:2.5},
+    {label:'ATC',data:ATC,borderColor:'#2563eb',tension:0.3,pointRadius:2,fill:false,borderWidth:2},
+    {label:'AVC',data:AVC,borderColor:'#16a34a',tension:0.3,pointRadius:2,fill:false,borderWidth:2},
+    {label:'AFC',data:AFC,borderColor:'#ca8a04',tension:0.3,pointRadius:2,fill:false,borderWidth:2,borderDash:[5,3]},
+  ]},options:{...CHART_DEFAULTS,scales:{x:{title:{display:true,text:'Quantity (Q)'}},y:{title:{display:true,text:'Cost ($ per unit)'},min:0,max:100}}}});
+}
+
+// ===== 5. PROFIT MAXIMIZATION =====
+let profMaxChart;
+const pmQ=Array.from({length:21},(_,i)=>i*5);
+function setProfMax(mode,el) {
+  const tabs=document.getElementById('profMaxChart').closest('.chart-box').querySelectorAll('.tab');
+  tabs.forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  const dem=pmQ.map(q=>100-q);
+  const mc=pmQ.map(q=>0.1*q**2-2*q+25);
+  const atc=pmQ.map(q=>q>0?150/q+0.05*q**2-1.5*q+25:null);
+  if(mode==='competitive') {
+    profMaxChart.data.datasets=[
+      {label:'Demand = MR = P (horizontal)',data:pmQ.map(()=>55),borderColor:'#2563eb',borderDash:[6,3],tension:0,pointRadius:0,fill:false,borderWidth:2},
+      {label:'MC',data:mc,borderColor:'#dc2626',tension:0.3,pointRadius:0,fill:false,borderWidth:2.5},
+      {label:'ATC',data:atc,borderColor:'#ca8a04',tension:0.3,pointRadius:0,fill:false},
+    ];
+    document.getElementById('profMaxMsg').textContent='Perfect competition: firm is a price taker, MR = P = $55 (flat line). Produce where MR=MC. Here that\'s Q≈24. If P > ATC at that quantity, firm makes profit; if P < ATC, it takes a loss but stays open short-term if P > AVC.';
+  } else if(mode==='monopoly') {
+    profMaxChart.data.datasets=[
+      {label:'Demand',data:dem,borderColor:'#2563eb',tension:0,pointRadius:0,fill:false,borderWidth:2},
+      {label:'MR (Marginal Revenue)',data:pmQ.map(q=>100-2*q),borderColor:'#7c3aed',tension:0,pointRadius:0,fill:false,borderWidth:2,borderDash:[5,3]},
+      {label:'MC',data:mc,borderColor:'#dc2626',tension:0.3,pointRadius:0,fill:false,borderWidth:2.5},
+    ];
+    document.getElementById('profMaxMsg').textContent='Monopoly: MR is steeper than demand (MR = 100 - 2Q for a linear demand P = 100 - Q). Set MR=MC to find Q*≈17. Then find price on the demand curve: P*≈83. Monopolist produces LESS and charges MORE than a competitive market would.';
+  } else {
+    profMaxChart.data.datasets=[
+      {label:'P = MR = $25',data:pmQ.map(()=>25),borderColor:'#dc2626',borderDash:[6,3],tension:0,pointRadius:0,fill:false,borderWidth:2},
+      {label:'AVC',data:pmQ.map(q=>q>0?0.05*q**2-1.5*q+25:null),borderColor:'#16a34a',tension:0.3,pointRadius:0,fill:false,borderWidth:2},
+      {label:'ATC',data:atc,borderColor:'#2563eb',tension:0.3,pointRadius:0,fill:false},
+    ];
+    document.getElementById('profMaxMsg').textContent='Shutdown condition: If P < AVC at the profit-maximizing Q, shut down immediately — producing actually makes losses worse than stopping. Here P=$25 ≈ AVC minimum, right at the "shutdown point." Below this price, stop producing even short-run.';
+  }
+  profMaxChart.update();
+}
+function initProfMax() {
+  const ctx=document.getElementById('profMaxChart').getContext('2d');
+  profMaxChart=new Chart(ctx,{type:'line',data:{labels:pmQ,datasets:[]},options:{...CHART_DEFAULTS,scales:{x:{title:{display:true,text:'Quantity'}},y:{title:{display:true,text:'Price / Cost ($)'},min:0,max:110}}}});
+  setProfMax('competitive',document.querySelector('#profMaxChart').closest('.chart-box').querySelector('.tab'));
+}
+
+// ===== 6. MARKET STRUCTURES =====
+function initMktStruct() {
+  const ctx=document.getElementById('mktStructChart').getContext('2d');
+  new Chart(ctx,{type:'bar',data:{
+    labels:['Perfect Competition','Monopolistic Competition','Oligopoly','Monopoly'],
+    datasets:[
+      {label:'# of Firms (relative)',data:[100,60,10,1],backgroundColor:['#bbf7d0','#86efac','#4ade80','#16a34a']},
+      {label:'Price Control (0-100)',data:[0,25,65,95],backgroundColor:['#fecaca','#fca5a5','#f87171','#dc2626']},
+      {label:'Long-run Economic Profit (0-100)',data:[0,5,60,90],backgroundColor:['#bfdbfe','#93c5fd','#60a5fa','#2563eb']},
+    ]
+  },options:{...CHART_DEFAULTS,scales:{x:{},y:{max:110,title:{display:true,text:'Scale (normalized)'}}}}});
+}
+
+// ===== 7. DEADWEIGHT LOSS =====
+let dwlChart;
+function setDWL(mode,el) {
+  const tabs=document.getElementById('dwlChart').closest('.chart-box').querySelectorAll('.tab');
+  tabs.forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  const Qs2=Array.from({length:61},(_,i)=>i);
+  const dem=Qs2.map(q=>100-q);
+  const sup=Qs2.map(q=>10+q);
+  if(mode==='tax') {
+    dwlChart.data.datasets=[
+      {label:'Demand',data:dem,borderColor:'#2563eb',tension:0,pointRadius:0,fill:false,borderWidth:2},
+      {label:'Supply (pre-tax)',data:sup,borderColor:'#fca5a5',borderDash:[4,3],tension:0,pointRadius:0,fill:false},
+      {label:'Supply+Tax',data:Qs2.map(q=>10+q+20),borderColor:'#dc2626',tension:0,pointRadius:0,fill:false,borderWidth:2},
+    ];
+    document.getElementById('dwlMsg').textContent='$20 per-unit tax: new equilibrium Q=35 vs. free-market Q=45. The 10-unit gap is never traded — mutual gains lost. DWL = ½ × 10 × 20 = $100. Both buyers (higher price) and sellers (lower net) lose; government collects tax revenue but total welfare is lower.';
+  } else if(mode==='monopoly') {
+    dwlChart.data.datasets=[
+      {label:'Demand',data:dem,borderColor:'#2563eb',tension:0,pointRadius:0,fill:false,borderWidth:2},
+      {label:'MR',data:Qs2.map(q=>100-2*q),borderColor:'#9333ea',borderDash:[5,3],tension:0,pointRadius:0,fill:false},
+      {label:'MC (= Supply)',data:sup,borderColor:'#dc2626',tension:0,pointRadius:0,fill:false,borderWidth:2},
+    ];
+    document.getElementById('dwlMsg').textContent='Monopolist sets MR=MC → Q*≈27 vs competitive Q=45. Charges P*≈$73 vs competitive P≈$55. DWL = triangle between the two equilibria — trades from Q=27 to Q=45 that would benefit both parties but don\'t happen because the monopolist restricts output.';
+  } else {
+    dwlChart.data.datasets=[
+      {label:'Demand',data:dem,borderColor:'#2563eb',tension:0,pointRadius:0,fill:false,borderWidth:2},
+      {label:'Supply',data:sup,borderColor:'#dc2626',tension:0,pointRadius:0,fill:false,borderWidth:2},
+      {label:'Price Ceiling ($40)',data:Qs2.map(()=>40),borderColor:'#9333ea',borderDash:[5,3],tension:0,pointRadius:0,fill:false,borderWidth:2},
+    ];
+    document.getElementById('dwlMsg').textContent='Price ceiling at $40 (below equilibrium $55). Quantity supplied = 30, demanded = 60 → shortage of 30 units. DWL = trades from Q=30 to Q=45 that can\'t happen. Plus: quality often degrades when sellers can\'t compete on price (think: rent-controlled apartments).';
+  }
+  dwlChart.update();
+}
+function initDWL() {
+  const ctx=document.getElementById('dwlChart').getContext('2d');
+  const Qs2=Array.from({length:61},(_,i)=>i);
+  dwlChart=new Chart(ctx,{type:'line',data:{labels:Qs2,datasets:[]},options:{...CHART_DEFAULTS,scales:{x:{title:{display:true,text:'Quantity'},max:70},y:{title:{display:true,text:'Price ($)'},min:0,max:110}}}});
+  setDWL('tax',document.getElementById('dwlChart').closest('.chart-box').querySelector('.tab'));
+}
+
+// ===== 8. EXTERNALITIES =====
+let extChart;
+function setExt(mode,el) {
+  const tabs=document.getElementById('extChart').closest('.chart-box').querySelectorAll('.tab');
+  tabs.forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  const Qs3=Array.from({length:61},(_,i)=>i);
+  const dem=Qs3.map(q=>100-q);
+  const sup=Qs3.map(q=>10+q); // Private MC
+  if(mode==='negative') {
+    extChart.data.datasets=[
+      {label:'Demand (= Private MB)',data:dem,borderColor:'#2563eb',tension:0,pointRadius:0,fill:false,borderWidth:2},
+      {label:'Private Supply (MPC)',data:sup,borderColor:'#fca5a5',borderDash:[4,3],tension:0,pointRadius:0,fill:false},
+      {label:'Social Cost (MSC = MPC + MEC)',data:Qs3.map(q=>10+q+20),borderColor:'#dc2626',tension:0,pointRadius:0,fill:false,borderWidth:2.5},
+    ];
+    document.getElementById('extMsg').textContent='Negative externality (e.g., factory pollution): Private market produces Q=45 at P=$55. But social cost (including pollution damage) means optimal Q=35 at P=$65. Market OVERPRODUCES by 10 units. Fix: Pigouvian tax of $20/unit on the firm shifts private supply to match social cost.';
+  } else {
+    extChart.data.datasets=[
+      {label:'Private Demand (MPB)',data:dem,borderColor:'#93c5fd',borderDash:[4,3],tension:0,pointRadius:0,fill:false},
+      {label:'Social Demand (MSB = MPB + MEB)',data:Qs3.map(q=>120-q),borderColor:'#2563eb',tension:0,pointRadius:0,fill:false,borderWidth:2.5},
+      {label:'Supply (= MSC)',data:sup,borderColor:'#dc2626',tension:0,pointRadius:0,fill:false,borderWidth:2},
+    ];
+    document.getElementById('extMsg').textContent='Positive externality (e.g., education): Private market produces Q=45. But society benefits MORE than the individual (trained workers → spillovers). Social optimum is Q=55. Market UNDERPRODUCES. Fix: government subsidy shifts demand rightward to close the gap.';
+  }
+  extChart.update();
+}
+function initExt() {
+  const ctx=document.getElementById('extChart').getContext('2d');
+  const Qs3=Array.from({length:61},(_,i)=>i);
+  extChart=new Chart(ctx,{type:'line',data:{labels:Qs3,datasets:[]},options:{...CHART_DEFAULTS,scales:{x:{title:{display:true,text:'Quantity'},max:80},y:{title:{display:true,text:'Price ($)'},min:0,max:130}}}});
+  setExt('negative',document.getElementById('extChart').closest('.chart-box').querySelector('.tab'));
+}
+
+// ===== 9. PPF =====
+let ppfChart;
+function setPPF(mode,el) {
+  const tabs=document.getElementById('ppfChart').closest('.chart-box').querySelectorAll('.tab');
+  tabs.forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  const pts = n => Array.from({length:n},(_,i)=>i/(n-1));
+  const ppfCurve = (t,xMax,yMax) => ({x:xMax*Math.sin(t*Math.PI/2), y:yMax*Math.cos(t*Math.PI/2)});
+  const ts = pts(50);
+  if(mode==='base') {
+    ppfChart.data.datasets=[
+      {label:'PPF',data:ts.map(t=>ppfCurve(t,100,100)),showLine:true,tension:0,borderColor:'#1a1a1a',pointRadius:0,fill:false,borderWidth:2.5,type:'scatter'},
+      {label:'Efficient point (on curve)',data:[{x:71,y:71}],pointRadius:6,pointBackgroundColor:'#16a34a',showLine:false,type:'scatter'},
+      {label:'Inefficient (inside)',data:[{x:40,y:40}],pointRadius:6,pointBackgroundColor:'#dc2626',showLine:false,type:'scatter'},
+      {label:'Impossible (outside)',data:[{x:90,y:90}],pointRadius:6,pointBackgroundColor:'#9333ea',showLine:false,type:'scatter'},
+    ];
+    document.getElementById('ppfMsg').textContent='Green dot: on the curve = efficient. Red dot: inside = inefficient (unemployed resources). Purple dot: outside = currently impossible. Every point ON the curve requires a trade-off — more Good A means less Good B.';
+  } else if(mode==='growth') {
+    ppfChart.data.datasets=[
+      {label:'Old PPF',data:ts.map(t=>ppfCurve(t,100,100)),showLine:true,tension:0,borderColor:'#9ca3af',pointRadius:0,fill:false,borderDash:[5,3],type:'scatter'},
+      {label:'New PPF (after growth)',data:ts.map(t=>ppfCurve(t,130,130)),showLine:true,tension:0,borderColor:'#1a1a1a',pointRadius:0,fill:false,borderWidth:2.5,type:'scatter'},
+    ];
+    document.getElementById('ppfMsg').textContent='Economic growth shifts the PPF outward — now MORE of both goods can be produced. Growth sources: more capital (investment), better technology (R&D, innovation), more/better labor (education, immigration), better institutions.';
+  } else {
+    const linPts=Array.from({length:11},(_,i)=>({x:i*10,y:100-i*10}));
+    ppfChart.data.datasets=[
+      {label:'Linear PPF (constant opp. cost)',data:linPts,showLine:true,tension:0,borderColor:'#2563eb',pointRadius:0,fill:false,borderWidth:2.5,type:'scatter'},
+    ];
+    document.getElementById('ppfMsg').textContent='A straight-line PPF means constant opportunity cost — every unit of Good A always costs the same amount of Good B, no matter where you are. This happens when resources are perfectly interchangeable between the two goods (rare in practice).';
+  }
+  ppfChart.update();
+}
+function initPPF() {
+  const ctx=document.getElementById('ppfChart').getContext('2d');
+  ppfChart=new Chart(ctx,{type:'scatter',data:{datasets:[]},options:{...CHART_DEFAULTS,scales:{x:{title:{display:true,text:'Good A (e.g. Guns)'},min:0,max:140},y:{title:{display:true,text:'Good B (e.g. Butter)'},min:0,max:140}}}});
+  setPPF('base',document.getElementById('ppfChart').closest('.chart-box').querySelector('.tab'));
+}
+
+window.onload=()=>{
+  initSD(); initElast(); initSurplus(); initCost(); initProfMax(); initMktStruct(); initDWL(); initExt(); initPPF();
+};
+</script>
+</body>
+</html>

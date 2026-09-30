@@ -1,0 +1,275 @@
+<h2>Power User Shortcuts — Financial Modeling, Accounting, Analysis &amp; Ops</h2>
+<p><em>Sections: Excel Paste Special  ·  Navigation  ·  Selection  ·  Rows/Cols/Sheets  ·  Formatting  ·  Formula Auditing  ·  Fill &amp; Entry  ·  Pivot &amp; Charts  ·  Workbook  ·  Google Sheets</em></p>
+<h3>Paste Special — The Most Underused Power</h3>
+<div class="note">💡 Pro Tip: Alt, E, S, V + Enter to paste values is the single most important Excel habit to build. Do it constantly.</div>
+
+<table>
+<tr><th>Shortcut</th><th>What It Does</th></tr>
+<tr><td></td><td>Paste Values only — removes formulas, pastes raw numbers</td></tr>
+<tr><td></td><td>Paste Formats only — apply formatting without touching data</td></tr>
+<tr><td></td><td>Paste Column Widths — match column widths from copied range</td></tr>
+<tr><td></td><td>Paste Formulas only — no formatting, just the formula</td></tr>
+<tr><td></td><td>Paste without any borders</td></tr>
+<tr><td></td><td>Paste Values + Number Formats (great for financial data)</td></tr>
+<tr><td></td><td>Paste and skip blanks — won&#x27;t overwrite existing data with blanks</td></tr>
+<tr><td></td><td>Transpose — paste rows as columns or vice versa</td></tr>
+<tr><td></td><td>Paste with Add operation — adds pasted values to existing cell values</td></tr>
+</table>
+<h3>Navigation</h3>
+<div class="note">💡 Pro Tip: Ctrl+Arrow and Ctrl+G → Special are how analysts move through massive sheets without a mouse.</div>
+
+<table>
+<tr><th>Shortcut</th><th>What It Does</th></tr>
+<tr><td>Ctrl + Arrow Key</td><td>Jump to last non-empty cell in a direction — skips through data blocks</td></tr>
+<tr><td>Ctrl + Shift + Arrow</td><td>Select from current cell to last non-empty cell in direction</td></tr>
+<tr><td>Ctrl + Home</td><td>Go to cell A1 instantly</td></tr>
+<tr><td>Ctrl + End</td><td>Go to last used cell in the sheet (bottom-right of your data)</td></tr>
+<tr><td>Ctrl + Shift + End</td><td>Select from current cell down to last used cell</td></tr>
+<tr><td>Ctrl + Shift + Home</td><td>Select from current cell back up to A1</td></tr>
+<tr><td>Ctrl + Backspace</td><td>Scroll view back to show the active cell (when you&#x27;ve scrolled away)</td></tr>
+<tr><td>Ctrl + G  or  F5</td><td>Go To dialog — jump to a named range, specific cell, or special cells</td></tr>
+<tr><td></td><td>Go To Special — select all blanks, formulas, constants, etc. in a range</td></tr>
+<tr><td>Ctrl + Page Up / Down</td><td>Switch between worksheet tabs</td></tr>
+<tr><td>Alt + Page Up / Down</td><td>Scroll one screen left or right</td></tr>
+<tr><td>Ctrl + F6</td><td>Switch between open Excel workbook windows</td></tr>
+<tr><td>Ctrl + Tab</td><td>Cycle through open workbooks</td></tr>
+</table>
+<h3>Selection &amp; Go To Special</h3>
+<div class="note">💡 Pro Tip: Ctrl+G → Special → Blanks then Ctrl+Enter is the fastest way to fill gaps in imported data.</div>
+
+<table>
+<tr><th>Shortcut</th><th>What It Does</th></tr>
+<tr><td>Ctrl + Shift + *  (or Ctrl+A in data)</td><td>Select the current data region (your whole table)</td></tr>
+<tr><td>Ctrl + Space</td><td>Select entire column</td></tr>
+<tr><td>Shift + Space</td><td>Select entire row</td></tr>
+<tr><td>Ctrl + Shift + Space</td><td>Select entire worksheet</td></tr>
+<tr><td>Shift + Click</td><td>Extend selection to clicked cell</td></tr>
+<tr><td>Ctrl + Click</td><td>Add individual cells to selection (non-contiguous)</td></tr>
+<tr><td>Alt, H, F, D, S</td><td>Go To Special → Select all cells with formulas</td></tr>
+<tr><td>Ctrl + \</td><td>Select cells in a row that differ from the first cell in selection — find inconsistencies</td></tr>
+<tr><td>Ctrl + Shift + |</td><td>Select cells in a column that differ from the first — audit column consistency</td></tr>
+<tr><td></td><td>Select all blank cells in a range — useful before bulk-filling or deleting</td></tr>
+</table>
+
+<h3>Rows, Columns &amp; Sheets</h3>
+<div class="note">💡 Pro Tip: Grouping (Alt,A,G,G) is essential in financial models — collapse entire assumption sections cleanly.</div>
+
+<table>
+<tr><th>Shortcut</th><th>What It Does</th></tr>
+<tr><td>Ctrl + Shift + +</td><td>Insert row or column (based on what&#x27;s selected)</td></tr>
+<tr><td>Ctrl + -</td><td>Delete selected row or column</td></tr>
+<tr><td>Alt, I, R</td><td>Insert row above (legacy menu — works on all Excel versions)</td></tr>
+<tr><td>Alt, I, C</td><td>Insert column to the left (legacy menu)</td></tr>
+<tr><td>Ctrl + 9</td><td>Hide selected rows</td></tr>
+<tr><td>Ctrl + Shift + 9</td><td>Unhide rows within selection</td></tr>
+<tr><td>Ctrl + 0</td><td>Hide selected columns</td></tr>
+<tr><td>Ctrl + Shift + 0</td><td>Unhide columns within selection (may need via ribbon on some versions)</td></tr>
+<tr><td>Alt, H, O, I</td><td>AutoFit column width to fit content</td></tr>
+<tr><td>Alt, H, O, A</td><td>AutoFit row height</td></tr>
+<tr><td>Alt, H, O, W</td><td>Set exact column width</td></tr>
+<tr><td>Alt, H, O, H</td><td>Set exact row height</td></tr>
+<tr><td>Alt, A, G, G</td><td>Group rows or columns (creates collapse/expand toggle — great for models)</td></tr>
+<tr><td>Alt, A, U, U</td><td>Ungroup rows or columns</td></tr>
+<tr><td>Alt, A, H</td><td>Hide the detail rows in a group (collapse)</td></tr>
+<tr><td>Alt, A, J</td><td>Show the detail rows in a group (expand)</td></tr>
+<tr><td>Ctrl + 8</td><td>Toggle outline symbols (the +/- group buttons on the left/top)</td></tr>
+<tr><td>Shift + F11</td><td>Insert a new worksheet</td></tr>
+<tr><td>Ctrl + Page Up/Down</td><td>Navigate to previous/next worksheet</td></tr>
+<tr><td>Alt, O, H, R</td><td>Rename current worksheet tab</td></tr>
+</table>
+<h3>Formatting</h3>
+<div class="note">💡 Pro Tip: Ctrl+1 opens everything. F4 repeats your last format — select a range, format one cell, F4 across the rest.</div>
+
+<table>
+<tr><th>Shortcut</th><th>What It Does</th></tr>
+<tr><td>Ctrl + 1</td><td>Open Format Cells dialog — the most important formatting shortcut</td></tr>
+<tr><td>Ctrl + Shift + $</td><td>Apply Currency format ($1,234.00)</td></tr>
+<tr><td>Ctrl + Shift + %</td><td>Apply Percentage format (50%)</td></tr>
+<tr><td>Ctrl + Shift + #</td><td>Apply Date format (14-Mar-25)</td></tr>
+<tr><td>Ctrl + Shift + @</td><td>Apply Time format (1:30 PM)</td></tr>
+<tr><td>Ctrl + Shift + !</td><td>Apply Number format with comma separator and 2 decimals</td></tr>
+<tr><td>Ctrl + Shift + ^</td><td>Apply Scientific notation format</td></tr>
+<tr><td>Ctrl + Shift + ~</td><td>Apply General format (removes all number formatting)</td></tr>
+<tr><td>Alt, H, B, A</td><td>Apply all borders to selection</td></tr>
+<tr><td>Alt, H, B, N</td><td>Remove all borders from selection</td></tr>
+<tr><td>Alt, H, B, T</td><td>Apply thick outer border only</td></tr>
+<tr><td>Alt, H, B, B</td><td>Apply thick bottom border (common in financial tables)</td></tr>
+<tr><td>Alt, H, H</td><td>Open fill/highlight color picker</td></tr>
+<tr><td>Alt, H, F, C</td><td>Open font color picker</td></tr>
+<tr><td>Ctrl + B / I / U</td><td>Bold / Italic / Underline</td></tr>
+<tr><td>Alt, H, A, L / C / R</td><td>Align text Left / Center / Right</td></tr>
+<tr><td>Alt, H, W</td><td>Toggle Wrap Text on selected cells</td></tr>
+<tr><td>Alt, H, M, C</td><td>Merge and Center selected cells</td></tr>
+<tr><td>F4  (after formatting)</td><td>Repeat last formatting action on new selection</td></tr>
+<tr><td>Ctrl + Y</td><td>Redo — also repeats last action (same as F4 in many cases)</td></tr>
+<tr><td>Alt, W, V, G</td><td>CLEAR GRIDLINES</td></tr>
+</table>
+
+<h3>Formula Auditing &amp; Debugging</h3>
+<div class="note">💡 Pro Tip: Highlight part of a formula in the formula bar and press F9 to see exactly what that section evaluates to — without breaking anything.</div>
+
+<table>
+<tr><th>Shortcut</th><th>What It Does</th></tr>
+<tr><td>F2</td><td>Enter edit mode for selected cell — shows colored cell references in formula</td></tr>
+<tr><td>Ctrl + `</td><td>Toggle showing formulas instead of values across entire sheet</td></tr>
+<tr><td>Ctrl + [</td><td>Jump to direct precedent cells (cells this formula references)</td></tr>
+<tr><td>Ctrl + ]</td><td>Jump to dependent cells (cells that reference this one)</td></tr>
+<tr><td>Alt, M, P</td><td>Trace Precedents — draw arrows showing where formula pulls from</td></tr>
+<tr><td>Alt, M, D</td><td>Trace Dependents — draw arrows showing what uses this cell</td></tr>
+<tr><td>Alt, M, A, A</td><td>Remove all tracer arrows from sheet</td></tr>
+<tr><td>Ctrl + Shift + {</td><td>Select ALL precedent cells (not just direct — goes all levels deep)</td></tr>
+<tr><td>Ctrl + Shift + }</td><td>Select ALL dependent cells (all levels)</td></tr>
+<tr><td>Alt, M, V</td><td>Open Evaluate Formula tool — step through formula calculation one piece at a time</td></tr>
+<tr><td>F9  (inside formula bar)</td><td>Evaluate selected part of a formula — highlight a section and press F9 to see its result</td></tr>
+<tr><td>Escape</td><td>Exit formula bar without saving changes (critical for undoing accidental edits)</td></tr>
+<tr><td>Ctrl + Shift + U</td><td>Expand or collapse the formula bar</td></tr>
+<tr><td>Alt, M, K</td><td>Error Checking — steps through formula errors in the sheet</td></tr>
+<tr><td>Ctrl + F3</td><td>Open Name Manager — see, edit, and delete all named ranges</td></tr>
+<tr><td>Ctrl + Shift + F3</td><td>Create named ranges from row or column header labels automatically</td></tr>
+<tr><td>F3  (inside formula)</td><td>Paste a named range into a formula — browse all names</td></tr>
+</table>
+<h3>Fill, Entry &amp; References</h3>
+<div class="note">💡 Pro Tip: Ctrl+Enter is underrated — select 50 cells, type once, Ctrl+Enter fills them all. Game changer for templates.</div>
+
+<table>
+<tr><th>Shortcut</th><th>What It Does</th></tr>
+<tr><td>Ctrl + D</td><td>Fill Down — copy the top cell&#x27;s value/formula into selected cells below</td></tr>
+<tr><td>Ctrl + R</td><td>Fill Right — copy the leftmost cell into selected cells to the right</td></tr>
+<tr><td>Ctrl + Enter</td><td>Fill all selected cells with what you&#x27;re currently typing (enter once, fills all)</td></tr>
+<tr><td>Alt + Enter</td><td>Insert a line break inside a cell (stays in edit mode)</td></tr>
+<tr><td>Ctrl + &#x27;  (apostrophe)</td><td>Copy exact formula from cell above without adjusting references</td></tr>
+<tr><td>Ctrl + Shift + &quot;  (quote)</td><td>Copy value (not formula) from cell above</td></tr>
+<tr><td>Tab  (in a range)</td><td>Move right within a selected range, then wrap to next row — for data entry</td></tr>
+<tr><td>Shift + Tab</td><td>Move left within a selected range during data entry</td></tr>
+<tr><td>Enter  (in a range)</td><td>Move down within selected range during data entry</td></tr>
+<tr><td>Shift + Enter</td><td>Move up within a selected range</td></tr>
+<tr><td>Ctrl + ;</td><td>Insert today&#x27;s date as a static value (doesn&#x27;t update)</td></tr>
+<tr><td>Ctrl + Shift + :</td><td>Insert current time as a static value</td></tr>
+<tr><td>Alt, E, I, S</td><td>Open Series dialog — fill a linear or growth series automatically</td></tr>
+<tr><td>Ctrl + E</td><td>Flash Fill — Excel detects the pattern you&#x27;re building and fills the rest</td></tr>
+<tr><td>F4  (in formula bar)</td><td>Toggle $A$1 → A$1 → $A1 → A1 — cycle absolute/relative references</td></tr>
+</table>
+
+<h3>PivotTables, Charts &amp; Data</h3>
+<div class="note">💡 Pro Tip: Ctrl+T to convert to a Table first — then PivotTables built on Tables auto-expand when you add rows.</div>
+
+<table>
+<tr><th>Shortcut</th><th>What It Does</th></tr>
+<tr><td>Alt, N, V, T</td><td>Insert a PivotTable from selected data</td></tr>
+<tr><td>Alt, N, V, C</td><td>Insert a PivotChart</td></tr>
+<tr><td>Alt, J, T, I</td><td>Refresh selected PivotTable data</td></tr>
+<tr><td>Alt, J, T, F, A</td><td>Refresh ALL PivotTables in workbook</td></tr>
+<tr><td>Alt, J, T, H</td><td>Open PivotTable Field List pane (if it closed)</td></tr>
+<tr><td>Ctrl + -  (on PivotTable)</td><td>Collapse selected field group</td></tr>
+<tr><td>Alt, F1</td><td>Insert an embedded chart from selected data instantly</td></tr>
+<tr><td>F11</td><td>Create a chart on its own new sheet from selected data</td></tr>
+<tr><td>Alt, J, C, S, A</td><td>Select all chart elements of the same type</td></tr>
+<tr><td>Ctrl + Shift + L</td><td>Toggle AutoFilter on/off for selected data range</td></tr>
+<tr><td>Alt + Down Arrow</td><td>Open the filter dropdown for the active filtered column</td></tr>
+<tr><td>Alt, A, S, S</td><td>Open the Sort dialog (multi-level sort)</td></tr>
+<tr><td>Alt, A, T</td><td>Apply/remove AutoFilter</td></tr>
+<tr><td>Ctrl + T</td><td>Convert range to a formal Table — enables structured references and auto-expanding ranges</td></tr>
+<tr><td>Alt, J, T, G, D</td><td>Convert Table back to a regular range</td></tr>
+</table>
+<h3>Workbook, Views &amp; Settings</h3>
+<div class="note">💡 Pro Tip: Alt,W,F,F to freeze panes at the right spot (select B2 first — freezes row 1 and column A simultaneously).</div>
+
+<table>
+<tr><th>Shortcut</th><th>What It Does</th></tr>
+<tr><td>Ctrl + N</td><td>New workbook</td></tr>
+<tr><td>Ctrl + W</td><td>Close current workbook</td></tr>
+<tr><td>Ctrl + S</td><td>Save</td></tr>
+<tr><td>F12</td><td>Save As (choose name/location/format)</td></tr>
+<tr><td>Ctrl + P</td><td>Print / Print Preview</td></tr>
+<tr><td>Alt, F, E</td><td>Export to PDF directly</td></tr>
+<tr><td>Ctrl + Z / Y</td><td>Undo / Redo (up to 100 steps)</td></tr>
+<tr><td>Ctrl + F</td><td>Find within sheet</td></tr>
+<tr><td>Ctrl + H</td><td>Find &amp; Replace</td></tr>
+<tr><td>Ctrl + Shift + F  (in Find)</td><td>Find across all sheets in workbook</td></tr>
+<tr><td>Alt, W, F, F</td><td>Freeze panes at selected cell (freezes rows above and columns left)</td></tr>
+<tr><td>Alt, W, F, R</td><td>Freeze top row only</td></tr>
+<tr><td>Alt, W, F, C</td><td>Freeze first column only</td></tr>
+<tr><td>Alt, W, S</td><td>Split the window into panes at the selected cell</td></tr>
+<tr><td>Alt, W, A</td><td>View workbook Arrange All — tile multiple open workbooks side by side</td></tr>
+<tr><td>Alt, W, N</td><td>Open a New Window of the same workbook (view two sheets at once)</td></tr>
+<tr><td>Ctrl + Shift + O</td><td>Select all cells with comments</td></tr>
+<tr><td>Shift + F2</td><td>Insert or edit a comment on the active cell</td></tr>
+<tr><td>Alt, R, H</td><td>Show/Hide all comments</td></tr>
+<tr><td>Ctrl + Alt + F9</td><td>Force recalculate ALL formulas in all open workbooks</td></tr>
+<tr><td>F9</td><td>Recalculate all formulas (in manual calc mode)</td></tr>
+<tr><td>Alt, F, I, C</td><td>Toggle manual vs. automatic calculation mode</td></tr>
+</table>
+
+<h2>Google Sheets</h2>
+<p><em>Most Excel shortcuts carry over. This section covers what&#x27;s different, Sheets-specific, or particularly useful.</em></p>
+<h3>Navigation &amp; Formatting</h3>
+<div class="note">💡 Pro Tip: Ctrl+Shift+V for paste values is the Sheets equivalent of Excel&#x27;s Alt,E,S,V — use it constantly.</div>
+
+<table>
+<tr><th>Shortcut</th><th>What It Does</th></tr>
+<tr><td>Ctrl + Arrow Key</td><td>Jump to last non-empty cell in direction (same as Excel)</td></tr>
+<tr><td>Ctrl + Shift + Arrow</td><td>Select to last non-empty cell in direction</td></tr>
+<tr><td>Ctrl + Home / End</td><td>Jump to A1 or to last used cell</td></tr>
+<tr><td>Ctrl + Page Up / Down</td><td>Switch between sheet tabs</td></tr>
+<tr><td>Ctrl + Shift + Page Up/Down</td><td>Move current sheet tab left or right</td></tr>
+<tr><td>Alt + Shift + K</td><td>Open sheet navigation menu (lists all sheets — great when you have many)</td></tr>
+<tr><td>Ctrl + 1</td><td>Open Format Cells dialog (same as Excel)</td></tr>
+<tr><td>Ctrl + Shift + 1</td><td>Format as number (2 decimal places, comma)</td></tr>
+<tr><td>Ctrl + Shift + 2</td><td>Format as time</td></tr>
+<tr><td>Ctrl + Shift + 3</td><td>Format as date</td></tr>
+<tr><td>Ctrl + Shift + 4</td><td>Format as currency</td></tr>
+<tr><td>Ctrl + Shift + 5</td><td>Format as percentage</td></tr>
+<tr><td>Ctrl + Shift + 6</td><td>Format as scientific notation</td></tr>
+<tr><td>Ctrl + \</td><td>Clear formatting only (keep values, remove all formatting)</td></tr>
+<tr><td>Alt + Shift + 5</td><td>Strikethrough — mark something as done or removed</td></tr>
+<tr><td>Ctrl + Shift + P</td><td>Superscript</td></tr>
+<tr><td>Ctrl + Shift + B</td><td>Subscript</td></tr>
+</table>
+<h3>Data Entry &amp; Manipulation</h3>
+<div class="note">💡 Pro Tip: Ctrl+Shift+Enter wraps any formula in ARRAYFORMULA — one formula that applies to the entire column automatically.</div>
+
+<table>
+<tr><th>Shortcut</th><th>What It Does</th></tr>
+<tr><td>Ctrl + D / R</td><td>Fill Down / Fill Right</td></tr>
+<tr><td>Ctrl + Enter</td><td>Fill all selected cells with current input</td></tr>
+<tr><td>Alt + Enter</td><td>New line inside a cell</td></tr>
+<tr><td>Ctrl + Shift + V</td><td>Paste Values only (equivalent to Paste Special Values in Excel)</td></tr>
+<tr><td>Ctrl + Shift + ;</td><td>Insert current time as static value</td></tr>
+<tr><td>Ctrl + ;</td><td>Insert today&#x27;s date as static value</td></tr>
+<tr><td>Ctrl + K</td><td>Insert a hyperlink</td></tr>
+<tr><td>Ctrl + Alt + M</td><td>Add a comment to the cell</td></tr>
+<tr><td>Ctrl + Alt + Shift + A</td><td>Open comment thread / see all comments</td></tr>
+<tr><td>F2</td><td>Enter edit mode for selected cell</td></tr>
+<tr><td>Ctrl + `</td><td>Toggle show all formulas across sheet</td></tr>
+<tr><td>F4  (in formula)</td><td>Toggle absolute/relative reference ($)</td></tr>
+<tr><td>Ctrl + Shift + Enter</td><td>Enter an ArrayFormula — applies formula across an entire range at once</td></tr>
+<tr><td>Ctrl + Shift + L</td><td>Toggle filter on/off for selected range</td></tr>
+<tr><td>Alt + Down Arrow</td><td>Open filter dropdown in filtered column</td></tr>
+<tr><td>Ctrl + Alt + Shift + =</td><td>Insert rows/columns (based on what&#x27;s selected)</td></tr>
+<tr><td>Ctrl + Alt + -</td><td>Delete selected rows/columns</td></tr>
+<tr><td>Alt, O, C, A</td><td>Resize column to fit content (AutoFit equivalent)</td></tr>
+<tr><td>Ctrl + Shift + F</td><td>Open Find &amp; Replace (with options for match case, regex, etc.)</td></tr>
+<tr><td>Ctrl + H</td><td>Find &amp; Replace (shortcut)</td></tr>
+</table>
+<h3>Power Features</h3>
+<div class="note">💡 Pro Tip: Version History (Ctrl+Alt+Shift+H) is a lifesaver — every edit is logged. You can restore any previous version of the sheet.</div>
+
+<table>
+<tr><th>Shortcut</th><th>What It Does</th></tr>
+<tr><td>Ctrl + Shift + C</td><td>Copy formatting (Format Painter — click cell, then select target range)</td></tr>
+<tr><td>Ctrl + Shift + V  (after copying format)</td><td>Paste formatting only</td></tr>
+<tr><td>Ctrl + Alt + Shift + H</td><td>Open Version History — see every change ever made, restore old versions</td></tr>
+<tr><td>Ctrl + Alt + Shift + P</td><td>Open Protected Sheets &amp; Ranges dialog</td></tr>
+<tr><td>Ctrl + Shift + X</td><td>Open Explore panel — AI-powered analysis, auto-chart suggestions, quick stats</td></tr>
+<tr><td>Ctrl + Shift + Y</td><td>Define/view named ranges</td></tr>
+<tr><td>Ctrl + Shift + G</td><td>Open a named range (jump to it)</td></tr>
+<tr><td>Alt + Shift + D</td><td>Delete current sheet (after confirmation)</td></tr>
+<tr><td>Shift + F11</td><td>Insert new sheet</td></tr>
+<tr><td>Ctrl + Shift + Alt + M</td><td>Insert a new sheet (alternative)</td></tr>
+<tr><td>Ctrl + P</td><td>Open Print settings</td></tr>
+<tr><td>Ctrl + Shift + P  (in menu context)</td><td>Open Print Preview with settings</td></tr>
+<tr><td>Ctrl + Z / Y</td><td>Undo / Redo</td></tr>
+<tr><td>Ctrl + Alt + E, then Enter</td><td>Open accessibility announcements — reads cell type, errors, notes</td></tr>
+<tr><td>F1  (function in formula)</td><td>While typing a function name, F1 opens help for that function</td></tr>
+<tr><td>Ctrl + Shift + H</td><td>Open keyboard shortcut reference inside Sheets</td></tr>
+</table>

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corporate Finance — Visual Guide</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 900px; margin: 0 auto; padding: 16px 16px 40px; color: #1a1a1a; line-height: 1.6; background: #fff; }
+  h1.page { font-size: 2em; border-bottom: 3px solid #1a1a1a; padding-bottom: 0.3em; margin-bottom: 0.2em; }
+  h1 { font-size: 1.5em; margin-top: 2.2em; border-bottom: 2px solid #e5e5e5; padding-bottom: 0.25em; }
+  h2 { font-size: 1.05em; margin-top: 0.9em; color: #333; }
+  p { margin: 0.45em 0; font-size: 0.95em; }
+  .intro { color: #444; margin-bottom: 4px; }
+  .chart-box { background: #fafafa; border: 1px solid #e5e5e5; border-radius: 8px; padding: 18px 22px; margin: 14px 0 20px; }
+  .chart-wrap { position: relative; height: 300px; }
+  .chart-wrap-sm { position: relative; height: 250px; }
+  .tabs { display: flex; gap: 7px; margin-bottom: 12px; flex-wrap: wrap; }
+  .tab { padding: 5px 14px; border: 1px solid #ccc; border-radius: 18px; cursor: pointer; font-size: 0.85em; background: #fff; transition: all 0.12s; user-select: none; }
+  .tab.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+  .note { background: #f4f4f4; border-left: 3px solid #bbb; padding: 8px 14px; margin: 8px 0; font-size: 0.88em; }
+  table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 0.89em; }
+  th, td { border: 1px solid #e0e0e0; padding: 7px 11px; text-align: left; }
+  th { background: #f4f4f4; font-weight: 600; }
+  tr:nth-child(even) td { background: #fafafa; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .nav { font-size: 0.83em; color: #888; margin-bottom: 1.5em; }
+  .nav a { color: #555; text-decoration: none; }
+  .input-row { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+  .input-row label { font-size: 0.88em; }
+  .input-row input { width: 70px; }
+</style>
+</head>
+<body>
+
+
+<h1 class="page">Corporate Finance</h1>
+<p class="intro">How companies are valued, how they choose between debt and equity, how options work, and the financial math behind every investment and borrowing decision.</p>
+
+<!-- ===== 1. TIME VALUE OF MONEY ===== -->
+<h1>1. Time Value of Money</h1>
+<p class="intro">A dollar today is worth more than a dollar tomorrow — you can invest it. This single idea underlies every valuation, bond price, mortgage payment, and investment decision ever made. PV and FV are two sides of the same equation.</p>
+
+<div class="chart-box">
+  <div class="tabs" id="tvm-tabs">
+    <div class="tab active" onclick="setTVM('fv',this)">Future Value (FV)</div>
+    <div class="tab" onclick="setTVM('pv',this)">Present Value (PV)</div>
+    <div class="tab" onclick="setTVM('annuity',this)">Annuity PV</div>
+    <div class="tab" onclick="setTVM('compare-rates',this)">Rate Comparison</div>
+  </div>
+  <div class="input-row">
+    <label>Principal: $<input type="number" id="tvmPV" value="10000" oninput="tvmUpdate()"></label>
+    <label>Rate: <input type="number" id="tvmRate" value="8" oninput="tvmUpdate()">%</label>
+    <label>Years: <input type="number" id="tvmYears" value="30" oninput="tvmUpdate()"></label>
+  </div>
+  <div class="chart-wrap"><canvas id="tvmChart"></canvas></div>
+  <p id="tvmMsg" class="note" style="margin-top:8px;"></p>
+  <table>
+    <tr><th>Formula</th><th>What it answers</th></tr>
+    <tr><td>FV = PV × (1 + r)ⁿ</td><td>What will $X today grow to in n years at rate r?</td></tr>
+    <tr><td>PV = FV / (1 + r)ⁿ</td><td>What is a future cash flow worth today?</td></tr>
+    <tr><td>PV of Annuity = C × [1 - (1+r)⁻ⁿ] / r</td><td>What is a stream of equal payments worth today? (Mortgages, bonds, leases)</td></tr>
+    <tr><td>PV of Perpetuity = C / r</td><td>What is a forever-recurring payment worth? (Used in terminal value of DCF)</td></tr>
+  </table>
+</div>
+
+<!-- ===== 2. DCF & SENSITIVITY ===== -->
+<h1>2. DCF Valuation &amp; Sensitivity</h1>
+<p class="intro">A company is worth the present value of all its future cash flows, discounted back to today. DCF is theoretically pure — and practically treacherous. Small changes in discount rate or growth rate swing the value dramatically.</p>
+
+<div class="chart-box">
+  <div class="tabs" id="dcf-tabs">
+    <div class="tab active" onclick="setDCF('waterfall',this)">Cash Flow Waterfall</div>
+    <div class="tab" onclick="setDCF('sensitivity',this)">Rate Sensitivity</div>
+    <div class="tab" onclick="setDCF('terminal',this)">Terminal Value Weight</div>
+  </div>
+  <div class="input-row">
+    <label>Base CF: $<input type="number" id="dcfCF" value="1000" oninput="dcfUpdate()"></label>
+    <label>Growth: <input type="number" id="dcfGrowth" value="5" oninput="dcfUpdate()">%</label>
+    <label>Discount: <input type="number" id="dcfDisc" value="10" oninput="dcfUpdate()">%</label>
+    <label>Terminal g: <input type="number" id="dcfTg" value="3" oninput="dcfUpdate()">%</label>
+    <label>Years: <input type="number" id="dcfN" value="10" oninput="dcfUpdate()"></label>
+  </div>
+  <div class="chart-wrap"><canvas id="dcfChart"></canvas></div>
+  <p id="dcfMsg" class="note" style="margin-top:8px;"></p>
+  <div class="note"><strong>Why DCF is hard in practice:</strong> A 1% change in discount rate can change value by 20–40%. A 0.5% change in terminal growth rate can swing value by 15%. Most of the value (often 60–80%) sits in the "terminal value" — a number calculated beyond the forecast horizon. Garbage in, garbage out. Always look at multiple methods (DCF + comps + precedent transactions).</div>
+</div>
+
+<!-- ===== 3. WACC ===== -->
+<h1>3. WACC — Weighted Average Cost of Capital</h1>
+<p class="intro">WACC is the discount rate used in DCF — the minimum return a company must earn to satisfy both debt holders and equity holders. Higher WACC = lower valuation. This is why rising interest rates kill valuations: they raise WACC.</p>
+
+<div class="chart-box">
+  <div class="tabs" id="wacc-tabs">
+    <div class="tab active" onclick="setWACC('breakdown',this)">WACC Breakdown</div>
+    <div class="tab" onclick="setWACC('rate-effect',this)">Interest Rate Effect</div>
+  </div>
+  <div class="input-row">
+    <label>Equity %: <input type="number" id="waccE" value="60" oninput="waccUpdate()">%</label>
+    <label>Cost of Equity (CAPM): <input type="number" id="waccCe" value="12" oninput="waccUpdate()">%</label>
+    <label>Debt %: <input type="number" id="waccD" value="40" oninput="waccUpdate()">%</label>
+    <label>Cost of Debt (pre-tax): <input type="number" id="waccCd" value="6" oninput="waccUpdate()">%</label>
+    <label>Tax Rate: <input type="number" id="waccT" value="25" oninput="waccUpdate()">%</label>
+  </div>
+  <div class="chart-wrap-sm"><canvas id="waccChart"></canvas></div>
+  <p id="waccMsg" class="note" style="margin-top:8px;"></p>
+  <table>
+    <tr><th>Component</th><th>Formula</th><th>Notes</th></tr>
+    <tr><td>WACC</td><td>(E/V) × Ke + (D/V) × Kd × (1−t)</td><td>V = E + D (total firm value)</td></tr>
+    <tr><td>Cost of Equity (Ke)</td><td>Rf + β × (Rm − Rf)</td><td>CAPM: risk-free rate + beta × equity risk premium. Not directly observable — highly debated.</td></tr>
+    <tr><td>Cost of Debt (Kd)</td><td>YTM on outstanding bonds (after tax)</td><td>Tax shield: interest is deductible, so effective cost = Kd × (1−tax rate)</td></tr>
+    <tr><td>Tax Shield</td><td>Kd × (1−t)</td><td>Debt is cheaper than equity after tax. This is why companies use leverage — it lowers WACC (up to a point).</td></tr>
+  </table>
+</div>
+
+<!-- ===== 4. CAPITAL STRUCTURE ===== -->
+<h1>4. Optimal Capital Structure</h1>
+<p class="intro">How much debt vs equity should a company use? Debt is cheaper (tax shield) but adds financial distress risk. There's an optimal mix that minimizes WACC and maximizes firm value — and it shifts by industry, economic cycle, and firm maturity.</p>
+
+<div class="chart-box">
+  <div class="chart-wrap-sm"><canvas id="capStrChart"></canvas></div>
+  <div class="note">
+    <strong>The U-shaped WACC curve:</strong> As leverage increases, WACC initially falls (cheap debt + tax shield). But beyond the optimal point, financial distress costs rise, equity holders demand higher returns, and cost of debt spikes — WACC rises. The goal: find the trough. Trade-off theory says this optimal point exists. Modigliani-Miller says in a perfect market, it doesn't matter (capital structure irrelevance) — but markets aren't perfect, so it does matter.
+  </div>
+  <table>
+    <tr><th>Level of Debt</th><th>Effect on WACC</th><th>Risk factors</th></tr>
+    <tr><td>Low (0–20%)</td><td>WACC falling — tax shield benefit outweighs risk premium increase</td><td>Minimal distress risk</td></tr>
+    <tr><td>Moderate (30–50%)</td><td>WACC near minimum — optimal zone for most mature businesses</td><td>Manageable distress risk</td></tr>
+    <tr><td>High (60%+)</td><td>WACC rising — distress risk premium dominates</td><td>Default risk, covenant violations, agency costs</td></tr>
+    <tr><td>Very high (80%+)</td><td>WACC rising sharply — lenders demand large risk premium</td><td>Near-distress territory; equity = out-of-the-money call option</td></tr>
+  </table>
+</div>
+
+<!-- ===== 5. BREAK-EVEN ANALYSIS ===== -->
+<h1>5. Break-Even Analysis</h1>
+<p class="intro">At what sales volume does revenue exactly cover total costs? Below break-even = losses. Above = profit. Critical for any business decision: launching a product, opening a location, making a capital investment.</p>
+
+<div class="chart-box">
+  <div class="input-row">
+    <label>Fixed Costs: $<input type="number" id="beFC" value="50000" oninput="beUpdate()"></label>
+    <label>Variable Cost/unit: $<input type="number" id="beVC" value="30" oninput="beUpdate()"></label>
+    <label>Price/unit: $<input type="number" id="bePrice" value="50" oninput="beUpdate()"></label>
+  </div>
+  <div class="chart-wrap"><canvas id="beChart"></canvas></div>
+  <p id="beMsg" class="note" style="margin-top:8px;"></p>
+  <div class="note"><strong>Margin of Safety:</strong> How far can sales fall from your current level before you reach break-even? If you're selling 5,000 units and break-even is 2,500, margin of safety = 50%. Higher margin of safety = more resilient business. Contribution Margin = (Price − VC) = how much each sale contributes toward covering fixed costs.</div>
+</div>
+
+<!-- ===== 6. OPERATING vs FINANCIAL LEVERAGE ===== -->
+<h1>6. Operating Leverage &amp; Financial Leverage</h1>
+<p class="intro">Leverage magnifies outcomes — in both directions. Operating leverage comes from fixed costs. Financial leverage comes from debt. Combine them and small revenue changes create huge earnings swings.</p>
+
+<div class="chart-box">
+  <div class="tabs" id="lev-tabs">
+    <div class="tab active" onclick="setLev('operating',this)">Operating Leverage</div>
+    <div class="tab" onclick="setLev('financial',this)">Financial Leverage (ROE)</div>
+    <div class="tab" onclick="setLev('combined',this)">Combined Leverage</div>
+  </div>
+  <div class="chart-wrap"><canvas id="levChart"></canvas></div>
+  <p id="levMsg" class="note" style="margin-top:8px;"></p>
+  <table>
+    <tr><th>Metric</th><th>Formula</th><th>What it means</th></tr>
+    <tr><td>Operating Leverage (DOL)</td><td>% Δ EBIT / % Δ Revenue</td><td>If DOL=3, a 10% revenue increase → 30% EBIT increase. Also means a 10% revenue drop → 30% EBIT drop.</td></tr>
+    <tr><td>Financial Leverage (DFL)</td><td>% Δ EPS / % Δ EBIT</td><td>Amplifies operating income into earnings per share via fixed interest charges</td></tr>
+    <tr><td>Combined (DTL)</td><td>DOL × DFL</td><td>Total earnings sensitivity to revenue. High DOL + high DFL = extreme earnings volatility (airlines, real estate)</td></tr>
+    <tr><td>Fixed cost heavy (high DOL)</td><td>Airlines, utilities, manufacturers</td><td>Lots of upside in booms, brutal in downturns</td></tr>
+    <tr><td>Variable cost heavy (low DOL)</td><td>Service businesses, retailers</td><td>More stable earnings but less upside leverage</td></tr>
+  </table>
+</div>
+
+<!-- ===== 7. OPTIONS PAYOFF DIAGRAMS ===== -->
+<h1>7. Options Payoff Diagrams</h1>
+<p class="intro">Options give you the right (not obligation) to buy or sell at a specific price. The payoff diagrams show profit/loss at expiration vs the stock price. Understanding these shapes is the foundation of options strategy.</p>
+
+<div class="chart-box">
+  <div class="tabs" id="opt-tabs">
+    <div class="tab active" onclick="setOpt('long-call',this)">Long Call</div>
+    <div class="tab" onclick="setOpt('long-put',this)">Long Put</div>
+    <div class="tab" onclick="setOpt('short-call',this)">Short Call</div>
+    <div class="tab" onclick="setOpt('short-put',this)">Short Put</div>
+    <div class="tab" onclick="setOpt('covered-call',this)">Covered Call</div>
+    <div class="tab" onclick="setOpt('protective-put',this)">Protective Put</div>
+    <div class="tab" onclick="setOpt('straddle',this)">Long Straddle</div>
+    <div class="tab" onclick="setOpt('strangle',this)">Long Strangle</div>
+  </div>
+  <div class="input-row">
+    <label>Strike (K): $<input type="number" id="optK" value="100" oninput="optUpdate()"></label>
+    <label>Premium: $<input type="number" id="optPrem" value="5" oninput="optUpdate()"></label>
+    <label>Stock cost (for CC/PP): $<input type="number" id="optStock" value="95" oninput="optUpdate()"></label>
+  </div>
+  <div class="chart-wrap"><canvas id="optChart"></canvas></div>
+  <p id="optMsg" class="note" style="margin-top:8px;"></p>
+  <table>
+    <tr><th>Strategy</th><th>When to use</th><th>Max profit</th><th>Max loss</th></tr>
+    <tr><td>Long Call</td><td>Bullish, leverage play</td><td>Unlimited</td><td>Premium paid</td></tr>
+    <tr><td>Long Put</td><td>Bearish, downside hedge</td><td>Strike − Premium</td><td>Premium paid</td></tr>
+    <tr><td>Short Call</td><td>Neutral to bearish, income</td><td>Premium received</td><td>Unlimited</td></tr>
+    <tr><td>Short Put</td><td>Neutral to bullish, income</td><td>Premium received</td><td>Strike − Premium</td></tr>
+    <tr><td>Covered Call</td><td>Own stock, want income, cap upside</td><td>Strike − Stock Cost + Prem</td><td>Stock goes to zero</td></tr>
+    <tr><td>Protective Put</td><td>Own stock, want downside protection</td><td>Unlimited</td><td>Stock Cost − Strike + Prem</td></tr>
+    <tr><td>Long Straddle</td><td>Big move expected, direction unknown (earnings)</td><td>Unlimited</td><td>Both premiums</td></tr>
+    <tr><td>Long Strangle</td><td>Same as straddle, cheaper, needs bigger move</td><td>Unlimited</td><td>Both premiums</td></tr>
+  </table>
+</div>
+
+<!-- ===== 8. DUPONT DECOMPOSITION ===== -->
+<h1>8. DuPont Analysis — Decomposing ROE</h1>
+<p class="intro">Return on Equity (ROE) is the ultimate profitability metric for equity holders. DuPont breaks it into three (or five) drivers, showing WHY ROE is high or low — and whether it's sustainable or risky.</p>
+
+<div class="chart-box">
+  <div class="tabs" id="dup-tabs">
+    <div class="tab active" onclick="setDupont('three',this)">3-Factor DuPont</div>
+    <div class="tab" onclick="setDupont('compare',this)">Company Comparison</div>
+    <div class="tab" onclick="setDupont('five',this)">5-Factor DuPont</div>
+  </div>
+  <div class="chart-wrap-sm"><canvas id="dupontChart"></canvas></div>
+  <p id="dupontMsg" class="note" style="margin-top:8px;"></p>
+  <div class="note">
+    ROE = Net Profit Margin × Asset Turnover × Financial Leverage<br>
+    <strong>Net Margin</strong> = Pricing power, cost control | <strong>Asset Turnover</strong> = Efficiency (how hard assets work) | <strong>Financial Leverage</strong> = D/E ratio (amplifier — cuts both ways)<br><br>
+    Two companies can have the same ROE via completely different paths. Amazon: high turnover, thin margins. Apple: high margins, moderate turnover. A bank: high leverage. Understanding which lever drives ROE tells you if it's sustainable.
+  </div>
+</div>
+
+<script>
+const CD={responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{font:{size:11},boxWidth:14}}}};
+let tvmMode='fv';
+
+// ===== TVM =====
+let tvmChart;
+function tvmCalc(){
+  const PV=parseFloat(document.getElementById('tvmPV').value)||10000;
+  const r=parseFloat(document.getElementById('tvmRate').value)/100||0.08;
+  const n=parseInt(document.getElementById('tvmYears').value)||30;
+  const yrs=Array.from({length:n+1},(_,i)=>i);
+  if(tvmMode==='fv'){
+    const fvData=yrs.map(i=>Math.round(PV*Math.pow(1+r,i)));
+    const fvLinear=yrs.map(i=>Math.round(PV*(1+r*i)));
+    document.getElementById('tvmMsg').textContent=`$${PV.toLocaleString()} at ${(r*100).toFixed(1)}% for ${n} years → FV = $${fvData[n].toLocaleString()} (compounded) vs $${fvLinear[n].toLocaleString()} (simple). The gap of $${(fvData[n]-fvLinear[n]).toLocaleString()} is pure compounding — money earning money.`;
+    return {labels:yrs,datasets:[{label:'Compound Growth',data:fvData,borderColor:'#2563eb',fill:true,backgroundColor:'rgba(37,99,235,0.07)',tension:0.4,pointRadius:0,borderWidth:2.5},{label:'Simple Interest (no compounding)',data:fvLinear,borderColor:'#9ca3af',borderDash:[5,3],tension:0.2,pointRadius:0,fill:false}]};
+  } else if(tvmMode==='pv'){
+    const fvData=yrs.map(i=>Math.round(PV*Math.pow(1+r,n-i)));
+    document.getElementById('tvmMsg').textContent=`A payment of $${Math.round(PV*Math.pow(1+r,n)).toLocaleString()} in ${n} years is worth only $${PV.toLocaleString()} today at a ${(r*100).toFixed(1)}% discount rate. This is why distant future cash flows are worth very little — the discount compounds against you.`;
+    return {labels:yrs,datasets:[{label:'Present Value (shrinking to today)',data:fvData,borderColor:'#dc2626',fill:true,backgroundColor:'rgba(220,38,38,0.07)',tension:0.4,pointRadius:0,borderWidth:2.5}]};
+  } else if(tvmMode==='annuity'){
+    const pmts=yrs.filter(i=>i>0);
+    const pvByYear=pmts.map(t=>Math.round(PV/Math.pow(1+r,t)));
+    const cumPV=pvByYear.map((_,i)=>pvByYear.slice(0,i+1).reduce((a,b)=>a+b,0));
+    document.getElementById('tvmMsg').textContent=`Receiving $${PV.toLocaleString()} per year for ${n} years at ${(r*100).toFixed(1)}% discount rate: Total PV = $${cumPV[cumPV.length-1].toLocaleString()} (vs $${(PV*n).toLocaleString()} undiscounted). Year 1 payment worth $${pvByYear[0].toLocaleString()}, Year ${n} payment worth only $${pvByYear[pvByYear.length-1].toLocaleString()}.`;
+    return {labels:pmts,datasets:[{label:'PV of Each Annual Payment',data:pvByYear,backgroundColor:'rgba(37,99,235,0.6)',type:'bar'},{label:'Cumulative PV',data:cumPV,borderColor:'#dc2626',fill:false,tension:0.4,pointRadius:2,type:'line'}]};
+  } else {
+    const rates=[2,4,6,8,10,12,15];
+    const data=rates.map(rate=>Math.round(PV*Math.pow(1+rate/100,n)));
+    document.getElementById('tvmMsg').textContent=`Same $${PV.toLocaleString()} over ${n} years: the rate matters enormously. At 2% → $${data[0].toLocaleString()}. At 10% → $${data[3].toLocaleString()}. At 15% → $${data[6].toLocaleString()}. Every extra percent of return doubles your final wealth given enough time.`;
+    return {labels:rates.map(r=>r+'%'),datasets:[{label:'Final Value ($)',data,backgroundColor:rates.map(r=>`rgba(37,99,235,${0.3+r*0.045})`),type:'bar'}]};
+  }
+}
+function tvmUpdate(){
+  const cfg=tvmCalc();
+  tvmChart.data.labels=cfg.labels;
+  tvmChart.data.datasets=cfg.datasets;
+  tvmChart.update();
+}
+function setTVM(mode,el){
+  document.querySelectorAll('#tvm-tabs .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  tvmMode=mode; tvmUpdate();
+}
+(function initTVM(){
+  const ctx=document.getElementById('tvmChart').getContext('2d');
+  const cfg=tvmCalc();
+  tvmChart=new Chart(ctx,{type:'line',data:{labels:cfg.labels,datasets:cfg.datasets},options:{...CD,scales:{x:{title:{display:true,text:'Year'}},y:{title:{display:true,text:'$'},ticks:{callback:v=>'$'+v.toLocaleString()}}}}});
+  document.getElementById('tvmMsg').textContent=tvmCalc();
+  tvmUpdate();
+})();
+
+// ===== DCF =====
+let dcfChart,dcfMode='waterfall';
+function dcfCalc(){
+  const cf0=parseFloat(document.getElementById('dcfCF').value)||1000;
+  const g=parseFloat(document.getElementById('dcfGrowth').value)/100||0.05;
+  const r=parseFloat(document.getElementById('dcfDisc').value)/100||0.10;
+  const tg=parseFloat(document.getElementById('dcfTg').value)/100||0.03;
+  const n=parseInt(document.getElementById('dcfN').value)||10;
+  const cfs=Array.from({length:n},(_,i)=>cf0*Math.pow(1+g,i));
+  const pvs=cfs.map((cf,i)=>cf/Math.pow(1+r,i+1));
+  const tv=cfs[n-1]*(1+tg)/(r-tg);
+  const pvTV=tv/Math.pow(1+r,n);
+  const sumPVcf=pvs.reduce((a,b)=>a+b,0);
+  const totalV=sumPVcf+pvTV;
+  if(dcfMode==='waterfall'){
+    document.getElementById('dcfMsg').textContent=`FCF PV total: $${Math.round(sumPVcf).toLocaleString()} | Terminal Value PV: $${Math.round(pvTV).toLocaleString()} | Total intrinsic value: $${Math.round(totalV).toLocaleString()}. Terminal value = ${Math.round(pvTV/totalV*100)}% of total — notice how dependent the valuation is on that single perpetuity estimate.`;
+    return {labels:Array.from({length:n},(_,i)=>'Yr '+(i+1)).concat(['Terminal\nValue']),datasets:[{label:'PV of Each Year\'s FCF',data:pvs.concat([pvTV]),backgroundColor:[...pvs.map(()=>'rgba(37,99,235,0.6)'), 'rgba(220,38,38,0.7)'],type:'bar'}]};
+  } else if(dcfMode==='sensitivity'){
+    const discRates=[6,7,8,9,10,11,12,13,14];
+    const vals=discRates.map(dr=>{const r2=dr/100; const pvs2=cfs.map((cf,i)=>cf/Math.pow(1+r2,i+1)).reduce((a,b)=>a+b,0); const tv2=cfs[n-1]*(1+tg)/(r2-tg)/Math.pow(1+r2,n); return Math.round(pvs2+tv2);});
+    document.getElementById('dcfMsg').textContent=`Discount rate sensitivity: Value ranges from $${vals[0].toLocaleString()} at 6% to $${vals[vals.length-1].toLocaleString()} at 14% — a ${Math.round((vals[0]-vals[vals.length-1])/vals[vals.length-1]*100)}% swing. This is why two analysts using the same cash flows but different WACCs get totally different valuations.`;
+    return {labels:discRates.map(r=>r+'%'),datasets:[{label:'DCF Value vs Discount Rate',data:vals,borderColor:'#dc2626',tension:0.4,pointRadius:4,fill:false,borderWidth:2.5}]};
+  } else {
+    const termGrowths=[1,1.5,2,2.5,3,3.5,4];
+    const vals=termGrowths.map(tgr=>{const tg2=tgr/100; if(r<=tg2) return null; const tv2=cfs[n-1]*(1+tg2)/(r-tg2)/Math.pow(1+r,n); return Math.round(sumPVcf+tv2);}).filter(Boolean);
+    const labels=termGrowths.filter((_,i)=>r>termGrowths[i]/100).map(t=>t+'%');
+    document.getElementById('dcfMsg').textContent=`Terminal growth rate sensitivity at ${(r*100).toFixed(0)}% discount rate. Notice how much bigger the impact is at higher growth rates — the perpetuity formula (CF/(r-g)) becomes hypersensitive as g approaches r. This is the biggest source of DCF uncertainty.`;
+    return {labels,datasets:[{label:'DCF Value vs Terminal Growth Rate',data:vals,borderColor:'#16a34a',tension:0.4,pointRadius:4,fill:false,borderWidth:2.5}]};
+  }
+}
+function dcfUpdate(){
+  const cfg=dcfCalc();
+  dcfChart.data.labels=cfg.labels;
+  dcfChart.data.datasets=cfg.datasets;
+  dcfChart.update();
+}
+function setDCF(mode,el){
+  document.querySelectorAll('#dcf-tabs .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  dcfMode=mode; dcfUpdate();
+}
+(function initDCF(){
+  const ctx=document.getElementById('dcfChart').getContext('2d');
+  const cfg=dcfCalc();
+  dcfChart=new Chart(ctx,{type:'bar',data:cfg,options:{...CD,scales:{y:{ticks:{callback:v=>'$'+v.toLocaleString()}}}}});
+  dcfUpdate();
+})();
+
+// ===== WACC =====
+let waccChart,waccMode='breakdown';
+function waccCalc(){
+  const E=parseFloat(document.getElementById('waccE').value)||60;
+  const D=parseFloat(document.getElementById('waccD').value)||40;
+  const Ke=parseFloat(document.getElementById('waccCe').value)||12;
+  const Kd=parseFloat(document.getElementById('waccCd').value)||6;
+  const t=parseFloat(document.getElementById('waccT').value)/100||0.25;
+  const eW=E/(E+D),dW=D/(E+D);
+  const wacc=eW*Ke+dW*Kd*(1-t);
+  document.getElementById('waccMsg').textContent=`WACC = ${(eW*100).toFixed(0)}% × ${Ke}% + ${(dW*100).toFixed(0)}% × ${Kd}% × (1-${(t*100).toFixed(0)}%) = ${wacc.toFixed(2)}%. Equity component: ${(eW*Ke).toFixed(2)}pp. After-tax debt component: ${(dW*Kd*(1-t)).toFixed(2)}pp.`;
+  if(waccMode==='breakdown'){
+    return {type:'doughnut',labels:['Equity Cost Contribution','After-tax Debt Cost Contribution'],data:[+(eW*Ke).toFixed(2),+(dW*Kd*(1-t)).toFixed(2)],colors:['#2563eb','#16a34a']};
+  } else {
+    const rates=Array.from({length:13},(_,i)=>i+3);
+    const waccs=rates.map(ff=>{const ke2=(ff+5); const kd2=ff*0.7; return eW*ke2+dW*kd2*(1-t);});
+    return {type:'line',labels:rates.map(r=>r+'%'),data:waccs,colors:null};
+  }
+}
+function waccUpdate(){
+  const cfg=waccCalc();
+  if(cfg.type==='doughnut'){
+    waccChart.config.type='doughnut';
+    waccChart.data.labels=cfg.labels;
+    waccChart.data.datasets=[{data:cfg.data,backgroundColor:cfg.colors,borderWidth:0}];
+  } else {
+    waccChart.config.type='line';
+    waccChart.data.labels=cfg.labels;
+    waccChart.data.datasets=[{label:'WACC',data:cfg.data,borderColor:'#dc2626',tension:0.3,pointRadius:3,fill:false,borderWidth:2.5}];
+  }
+  waccChart.update();
+}
+function setWACC(mode,el){
+  document.querySelectorAll('#wacc-tabs .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  waccMode=mode; waccUpdate();
+}
+(function initWACC(){
+  const ctx=document.getElementById('waccChart').getContext('2d');
+  const cfg=waccCalc();
+  waccChart=new Chart(ctx,{type:'doughnut',data:{labels:cfg.labels,datasets:[{data:cfg.data,backgroundColor:['#2563eb','#16a34a'],borderWidth:0}]},options:{...CD,plugins:{...CD.plugins,legend:{position:'right'}}}});
+  waccUpdate();
+})();
+
+// ===== CAPITAL STRUCTURE =====
+(function initCapStr(){
+  const ctx=document.getElementById('capStrChart').getContext('2d');
+  const lev=Array.from({length:11},(_,i)=>i*10);
+  const ke=lev.map(d=>8+d*0.12+d*d*0.008);
+  const kdAt=lev.map(d=>Math.max(0,4+d*0.05+Math.max(0,d-50)*0.08)*(1-0.25));
+  const wacc=lev.map((d,i)=>{ const e=100-d; const tot=100; return (e/tot)*ke[i]+(d/tot)*kdAt[i]; });
+  new Chart(ctx,{type:'line',data:{labels:lev,datasets:[
+    {label:'Cost of Equity (Ke)',data:ke,borderColor:'#2563eb',tension:0.4,pointRadius:2,fill:false,borderWidth:2},
+    {label:'After-tax Cost of Debt (Kd)',data:kdAt,borderColor:'#16a34a',tension:0.4,pointRadius:2,fill:false,borderWidth:2},
+    {label:'WACC (minimize this)',data:wacc,borderColor:'#dc2626',tension:0.4,pointRadius:3,fill:false,borderWidth:3},
+  ]},options:{...CD,scales:{x:{title:{display:true,text:'Debt Ratio (%)'}},y:{title:{display:true,text:'Cost (%)'},min:0,max:35}}}});
+})();
+
+// ===== BREAK-EVEN =====
+let beChart;
+function beCalc(){
+  const FC=parseFloat(document.getElementById('beFC').value)||50000;
+  const VC=parseFloat(document.getElementById('beVC').value)||30;
+  const P=parseFloat(document.getElementById('bePrice').value)||50;
+  const CM=P-VC;
+  const BEQ=CM>0?Math.round(FC/CM):null;
+  const maxQ=BEQ?Math.round(BEQ*2.5):5000;
+  const Qs=Array.from({length:21},(_,i)=>Math.round(i*maxQ/20));
+  document.getElementById('beMsg').textContent=BEQ?`Contribution margin = $${CM}/unit. Break-even = $${FC.toLocaleString()} ÷ $${CM} = ${BEQ.toLocaleString()} units. At ${BEQ.toLocaleString()} units you exactly cover costs. Above this every unit earns $${CM} in profit.`:'Price must exceed variable cost to reach break-even.';
+  return {labels:Qs,datasets:[
+    {label:'Revenue',data:Qs.map(q=>q*P),borderColor:'#16a34a',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},
+    {label:'Total Cost (FC + VC)',data:Qs.map(q=>FC+q*VC),borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},
+    {label:'Fixed Cost',data:Qs.map(()=>FC),borderColor:'#9ca3af',borderDash:[5,3],tension:0,pointRadius:0,fill:false},
+  ]};
+}
+function beUpdate(){
+  const cfg=beCalc();
+  beChart.data.labels=cfg.labels;
+  beChart.data.datasets=cfg.datasets;
+  beChart.update();
+}
+(function initBE(){
+  const ctx=document.getElementById('beChart').getContext('2d');
+  const cfg=beCalc();
+  beChart=new Chart(ctx,{type:'line',data:cfg,options:{...CD,scales:{x:{title:{display:true,text:'Units Sold'}},y:{title:{display:true,text:'$'},ticks:{callback:v=>'$'+v.toLocaleString()}}}}});
+  beUpdate();
+})();
+
+// ===== LEVERAGE =====
+let levChart,levMode='operating';
+function setLev(mode,el){
+  document.querySelectorAll('#lev-tabs .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  levMode=mode;
+  const rev=Array.from({length:21},(_,i)=>i*100000);
+  if(mode==='operating'){
+    const highFixed={FC:500000,VC:0.2};
+    const lowFixed={FC:100000,VC:0.6};
+    levChart.data.labels=rev;
+    levChart.data.datasets=[
+      {label:'High Fixed Cost EBIT',data:rev.map(r=>r-highFixed.FC-r*highFixed.VC),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},
+      {label:'Low Fixed Cost EBIT',data:rev.map(r=>r-lowFixed.FC-r*lowFixed.VC),borderColor:'#16a34a',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},
+      {label:'Zero profit line',data:rev.map(()=>0),borderColor:'#9ca3af',borderDash:[5,3],pointRadius:0,fill:false},
+    ];
+    document.getElementById('levMsg').textContent='High fixed cost firms (airlines, manufacturers, utilities): massive operating leverage. At low revenue, losses are catastrophic. At high revenue, most of each extra dollar becomes profit. Low fixed cost firms (services, retailers) are more stable but have less upside.';
+  } else if(mode==='financial'){
+    const ebit=Array.from({length:21},(_,i)=>(i-5)*100000);
+    const interest=200000;
+    const noLev=ebit.map(e=>e*(1-0.25));
+    const withLev=ebit.map(e=>Math.max((e-interest)*(1-0.25),-200000));
+    levChart.data.labels=ebit.map(e=>'$'+Math.round(e/1000)+'K');
+    levChart.data.datasets=[
+      {label:'Net Income (no debt)',data:noLev,borderColor:'#16a34a',tension:0.2,pointRadius:0,fill:false,borderWidth:2},
+      {label:'Net Income (with debt, $200K interest)',data:withLev,borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},
+      {label:'Zero',data:ebit.map(()=>0),borderColor:'#9ca3af',borderDash:[4,3],pointRadius:0,fill:false},
+    ];
+    document.getElementById('levMsg').textContent='Financial leverage: fixed interest charges amplify the impact of EBIT swings on net income. When EBIT is high, debt holders are satisfied and equity holders capture all excess. When EBIT falls, equity holders absorb losses amplified by the fixed interest burden.';
+  } else {
+    const rev2=Array.from({length:21},(_,i)=>i*100000);
+    const FC=400000,VCr=0.3,interest=150000;
+    const ni_noLev=rev2.map(r=>Math.max(0,r-FC-r*VCr)*(1-0.25));
+    const ni_withLev=rev2.map(r=>Math.max(0,r-FC-r*VCr-interest)*(1-0.25));
+    levChart.data.labels=rev2.map(r=>'$'+Math.round(r/1000)+'K');
+    levChart.data.datasets=[
+      {label:'Net Income (equity only)',data:ni_noLev,borderColor:'#16a34a',tension:0.2,pointRadius:0,fill:false,borderWidth:2},
+      {label:'Net Income (high DOL + debt)',data:ni_withLev,borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},
+    ];
+    document.getElementById('levMsg').textContent='Combined leverage (high fixed costs + debt): small revenue changes create enormous swings in net income. The firm breaks even at much higher revenue, but profits accelerate faster above that point. This is the risk/reward profile of highly leveraged businesses.';
+  }
+  levChart.update();
+}
+(function initLev(){
+  const ctx=document.getElementById('levChart').getContext('2d');
+  levChart=new Chart(ctx,{type:'line',data:{labels:[],datasets:[]},options:{...CD,scales:{x:{title:{display:true,text:'Revenue ($)'}},y:{title:{display:true,text:'Profit/Loss ($)'},ticks:{callback:v=>'$'+v.toLocaleString()}}}}});
+  setLev('operating',document.querySelector('#lev-tabs .tab'));
+})();
+
+// ===== OPTIONS =====
+let optChart,optMode='long-call';
+function optCalc(){
+  const K=parseFloat(document.getElementById('optK').value)||100;
+  const prem=parseFloat(document.getElementById('optPrem').value)||5;
+  const SC=parseFloat(document.getElementById('optStock').value)||95;
+  const prices=Array.from({length:81},(_,i)=>K-40+i);
+  const msgs={
+    'long-call':'Long Call: You pay the premium upfront for the right to buy at K. Max loss = premium paid (if stock stays below K at expiry). Profit = (Stock − K − Premium) above K. Unlimited upside. Classic leveraged bullish bet.',
+    'long-put':'Long Put: Right to SELL at K. Profits as the stock falls. Used as portfolio insurance or bearish speculation. Max loss = premium. Max profit = K − premium (if stock goes to zero).',
+    'short-call':'Short (Naked) Call: You collect the premium but take on UNLIMITED upside risk if the stock surges. Time decay (theta) works in your favor. Dangerous without owning the underlying stock.',
+    'short-put':'Short Put: Collect premium, obligated to buy at K if stock falls below K. Net cost if exercised = K − premium. Effective strategy when you want to own the stock at a lower price.',
+    'covered-call':'Covered Call: Own the stock + sell a call. You cap your upside at K but collect the premium immediately. Enhances yield on sideways or slowly rising stocks. Most popular options income strategy.',
+    'protective-put':'Protective Put (Married Put): Own the stock + buy a put for downside protection. Your floor loss is (cost − K + premium). Unlimited upside preserved. Like buying insurance on your stock.',
+    'straddle':'Long Straddle: Buy BOTH a call AND a put at the same strike. Profits from a big move in EITHER direction. Break-even = K ± 2× premium. Used around earnings, FDA decisions, elections. Expensive but direction-neutral.',
+    'strangle':'Long Strangle: Buy OTM call (K+10) + OTM put (K-10). Cheaper than straddle, needs even bigger move to profit. Break-even = call strike + prem OR put strike − prem.',
+  };
+  document.getElementById('optMsg').textContent=msgs[optMode];
+  let payoff;
+  if(optMode==='long-call') payoff=prices.map(s=>Math.max(0,s-K)-prem);
+  else if(optMode==='long-put') payoff=prices.map(s=>Math.max(0,K-s)-prem);
+  else if(optMode==='short-call') payoff=prices.map(s=>prem-Math.max(0,s-K));
+  else if(optMode==='short-put') payoff=prices.map(s=>prem-Math.max(0,K-s));
+  else if(optMode==='covered-call') payoff=prices.map(s=>(s-SC)+prem-Math.max(0,s-K));
+  else if(optMode==='protective-put') payoff=prices.map(s=>(s-SC)-prem+Math.max(0,K-s));
+  else if(optMode==='straddle') payoff=prices.map(s=>Math.max(0,s-K)+Math.max(0,K-s)-2*prem);
+  else if(optMode==='strangle') payoff=prices.map(s=>Math.max(0,s-(K+10))+Math.max(0,(K-10)-s)-2*prem);
+  return {labels:prices,datasets:[
+    {label:'P&L at Expiry',data:payoff,borderColor:payoff.map(v=>v>=0?'#16a34a':'#dc2626'),segment:{borderColor:ctx=>{const prev=payoff[ctx.p0DataIndex],curr=payoff[ctx.p1DataIndex];return (prev>=0&&curr>=0)?'#16a34a':'#dc2626';}},backgroundColor:payoff.map(v=>v>=0?'rgba(22,163,74,0.08)':'rgba(220,38,38,0.08)'),fill:true,tension:0.1,pointRadius:0,borderWidth:2.5},
+    {label:'Break-even (zero)',data:prices.map(()=>0),borderColor:'#9ca3af',borderDash:[4,3],pointRadius:0,fill:false,borderWidth:1},
+  ]};
+}
+function optUpdate(){
+  const cfg=optCalc();
+  optChart.data.labels=cfg.labels;
+  optChart.data.datasets=cfg.datasets;
+  optChart.update();
+}
+function setOpt(mode,el){
+  document.querySelectorAll('#opt-tabs .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  optMode=mode; optUpdate();
+}
+(function initOpt(){
+  const ctx=document.getElementById('optChart').getContext('2d');
+  const cfg=optCalc();
+  optChart=new Chart(ctx,{type:'line',data:cfg,options:{...CD,scales:{x:{title:{display:true,text:'Stock Price at Expiry ($)'},ticks:{maxTicksLimit:12}},y:{title:{display:true,text:'Profit / Loss ($)'},ticks:{callback:v=>'$'+v.toLocaleString()}}}}});
+  document.getElementById('optMsg').textContent='Long Call: You pay the premium upfront for the right to buy at K. Max loss = premium paid. Unlimited upside.';
+})();
+
+// ===== DUPONT =====
+let dupontChart,dupMode='three';
+function setDupont(mode,el){
+  document.querySelectorAll('#dup-tabs .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  dupMode=mode;
+  if(mode==='three'){
+    dupontChart.config.type='bar';
+    dupontChart.data.labels=['Net Margin (%)','Asset Turnover (×)','Fin. Leverage (×)','ROE (%)'];
+    dupontChart.data.datasets=[{label:'Company A (Retail)',data:[3,2.5,2,15],backgroundColor:'#2563eb'},{label:'Company B (Tech)',data:[20,0.8,2,32],backgroundColor:'#16a34a'},{label:'Company C (Bank)',data:[15,0.1,8,12],backgroundColor:'#dc2626'}];
+    document.getElementById('dupontMsg').textContent='Same ROE can come from different combinations. Retail: thin margins, high turnover. Tech: fat margins, moderate turnover. Bank: razor-thin margins on assets, extreme leverage. Knowing WHICH lever drives ROE tells you whether it\'s sustainable.';
+  } else if(mode==='compare'){
+    dupontChart.config.type='radar';
+    dupontChart.data.labels=['Net Margin','Asset Turnover','Leverage','Revenue Growth','FCF Margin'];
+    dupontChart.data.datasets=[
+      {label:'Apple',data:[25,1.1,5,8,26],borderColor:'#2563eb',backgroundColor:'rgba(37,99,235,0.1)',pointRadius:4},
+      {label:'Amazon',data:[5,1.4,3.5,10,5],borderColor:'#dc2626',backgroundColor:'rgba(220,38,38,0.1)',pointRadius:4},
+      {label:'JPMorgan',data:[22,0.08,9,5,18],borderColor:'#16a34a',backgroundColor:'rgba(22,163,74,0.1)',pointRadius:4},
+    ];
+    document.getElementById('dupontMsg').textContent='Radar chart: each axis is a different business quality metric. Very different shapes — Apple is margin-driven, Amazon is scale/turnover-driven, JPMorgan is leverage-driven. No single shape is "right" — depends on business model.';
+  } else {
+    dupontChart.config.type='bar';
+    dupontChart.data.labels=['Tax Burden\n(NI/EBT)','Interest Burden\n(EBT/EBIT)','EBIT Margin\n(EBIT/Rev)','Asset Turnover\n(Rev/Assets)','Equity Multiplier\n(Assets/Equity)'];
+    dupontChart.data.datasets=[{label:'5-Factor Breakdown (example)',data:[0.78,0.85,0.12,1.5,2.8],backgroundColor:['#2563eb','#7c3aed','#16a34a','#ca8a04','#dc2626']}];
+    document.getElementById('dupontMsg').textContent='5-factor DuPont adds tax burden (how much tax eats into income) and interest burden (how much interest eats into EBIT). ROE = Tax Burden × Interest Burden × EBIT Margin × Asset Turnover × Equity Multiplier. Each factor tells you a different story about where value is being created or lost.';
+  }
+  dupontChart.update();
+}
+(function initDupont(){
+  const ctx=document.getElementById('dupontChart').getContext('2d');
+  dupontChart=new Chart(ctx,{type:'bar',data:{labels:[],datasets:[]},options:{...CD}});
+  setDupont('three',document.querySelector('#dup-tabs .tab'));
+})();
+</script>
+</body>
+</html>

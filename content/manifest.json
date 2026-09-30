@@ -1,0 +1,198 @@
+{
+    "categories":  [
+                       {
+                           "id":  "finance",
+                           "name":  "Finance and Economics",
+                           "blurb":  "Ratios, statements, markets, and the economy"
+                       },
+                       {
+                           "id":  "business",
+                           "name":  "Business and Strategy",
+                           "blurb":  "How companies compete and allocate capital"
+                       },
+                       {
+                           "id":  "ideas",
+                           "name":  "Ideas and the World",
+                           "blurb":  "Thinking tools, philosophy, history, and how things work"
+                       },
+                       {
+                           "id":  "tech",
+                           "name":  "Technology and AI",
+                           "blurb":  "How modern technology actually works"
+                       },
+                       {
+                           "id":  "playbooks",
+                           "name":  "Playbooks",
+                           "blurb":  "Step by step how-tos for money, tools, and travel"
+                       },
+                       {
+                           "id":  "reading",
+                           "name":  "Reading and Links",
+                           "blurb":  "Books to read and the best free resources"
+                       }
+                   ],
+    "guides":  [
+                   {
+                       "id":  "finance-reference",
+                       "title":  "Finance Reference",
+                       "cat":  "finance",
+                       "blurb":  "Every ratio, the three financial statements, and debits and credits. Open it while analyzing a company.",
+                       "min":  12
+                   },
+                   {
+                       "id":  "economics-reference",
+                       "title":  "Economics Reference",
+                       "cat":  "finance",
+                       "blurb":  "Macro, micro, monetary policy, key indicators, and market structures.",
+                       "min":  7
+                   },
+                   {
+                       "id":  "accounting-reference",
+                       "title":  "Accounting Reference",
+                       "cat":  "finance",
+                       "blurb":  "Debits and credits, financial statements, GAAP, and journal entries.",
+                       "min":  7
+                   },
+                   {
+                       "id":  "business-strategy",
+                       "title":  "Business Strategy Reference",
+                       "cat":  "business",
+                       "blurb":  "Competitive advantage, frameworks, unit economics, startup thinking, and capital allocation.",
+                       "min":  8
+                   },
+                   {
+                       "id":  "mental-models",
+                       "title":  "Mental Models",
+                       "cat":  "ideas",
+                       "blurb":  "A reference guide to thinking clearly, one model at a time.",
+                       "min":  16
+                   },
+                   {
+                       "id":  "philosophy",
+                       "title":  "Philosophy Reference",
+                       "cat":  "ideas",
+                       "blurb":  "Schools of thought, key thinkers, the big questions, and ethics.",
+                       "min":  10
+                   },
+                   {
+                       "id":  "history",
+                       "title":  "History Reference",
+                       "cat":  "ideas",
+                       "blurb":  "World timeline, great empires, turning points, and patterns that repeat.",
+                       "min":  8
+                   },
+                   {
+                       "id":  "how-things-work",
+                       "title":  "How Things Work",
+                       "cat":  "ideas",
+                       "blurb":  "The internet, physics, cars, money, medicine, and everyday systems.",
+                       "min":  8
+                   },
+                   {
+                       "id":  "ai-reference",
+                       "title":  "AI and Machine Learning",
+                       "cat":  "tech",
+                       "blurb":  "How AI works, large language models, key concepts, and the landscape.",
+                       "min":  7
+                   },
+                   {
+                       "id":  "personal-finance-playbook",
+                       "title":  "Personal Finance Playbook",
+                       "cat":  "playbooks",
+                       "blurb":  "The order of operations, accounts, budgeting, credit, taxes, and insurance.",
+                       "min":  11
+                   },
+                   {
+                       "id":  "fidelity-basics",
+                       "title":  "Fidelity Basics",
+                       "cat":  "playbooks",
+                       "blurb":  "Getting around a Fidelity account: funding, buying, and the settings that matter.",
+                       "min":  11
+                   },
+                   {
+                       "id":  "gmail-playbook",
+                       "title":  "Gmail Playbook",
+                       "cat":  "playbooks",
+                       "blurb":  "From inbox chaos to a self-cleaning Gmail, step by step.",
+                       "min":  8
+                   },
+                   {
+                       "id":  "google-drive-setup",
+                       "title":  "Google Drive Setup",
+                       "cat":  "playbooks",
+                       "blurb":  "A clean Drive setup on Windows and macOS with four master folders pinned everywhere.",
+                       "min":  4
+                   },
+                   {
+                       "id":  "excel-shortcuts",
+                       "title":  "Excel and Sheets Shortcuts",
+                       "cat":  "playbooks",
+                       "blurb":  "Paste Special, navigation, selection, formatting, pivots, and Google Sheets equivalents.",
+                       "min":  11
+                   },
+                   {
+                       "id":  "mac-iphone",
+                       "title":  "Mac and iPhone Power User",
+                       "cat":  "playbooks",
+                       "blurb":  "Shortcuts and hidden features across macOS, Safari, and iOS.",
+                       "min":  11
+                   },
+                   {
+                       "id":  "travel-playbook",
+                       "title":  "Travel Playbook",
+                       "cat":  "playbooks",
+                       "blurb":  "Booking strategies, credit card points, packing, logistics, and staying safe.",
+                       "min":  7
+                   },
+                   {
+                       "id":  "reading-list",
+                       "title":  "The Reading List",
+                       "cat":  "reading",
+                       "blurb":  "A curated library across finance, business, history, philosophy, and more, with a level on every book.",
+                       "min":  21
+                   },
+                   {
+                       "id":  "links-finance",
+                       "title":  "Finance Links",
+                       "cat":  "reading",
+                       "blurb":  "Free PDFs, videos, sites, and newsletters worth following.",
+                       "min":  4
+                   },
+                   {
+                       "id":  "links-history",
+                       "title":  "History and World Links",
+                       "cat":  "reading",
+                       "blurb":  "Free books, YouTube channels, podcasts, sites, and maps.",
+                       "min":  3
+                   },
+                   {
+                       "id":  "links-tech",
+                       "title":  "Tech and AI Links",
+                       "cat":  "reading",
+                       "blurb":  "Papers, courses, newsletters, YouTube channels, and tools to know.",
+                       "min":  4
+                   }
+               ],
+    "visuals":  [
+                    {
+                        "id":  "microeconomics",
+                        "title":  "Microeconomics",
+                        "blurb":  "Supply and demand, elasticity, surplus, cost curves, market structures, deadweight loss, and externalities."
+                    },
+                    {
+                        "id":  "macroeconomics",
+                        "title":  "Macroeconomics",
+                        "blurb":  "AD-AS, the Phillips curve, the yield curve, loanable funds, the Laffer curve, Okun, and IS-LM."
+                    },
+                    {
+                        "id":  "corporate-finance",
+                        "title":  "Corporate Finance",
+                        "blurb":  "Time value of money, DCF, WACC, capital structure, leverage, option payoffs, and DuPont."
+                    },
+                    {
+                        "id":  "investing-markets",
+                        "title":  "Investing and Markets",
+                        "blurb":  "Compounding and DCA, the efficient frontier, asset allocation, sequence risk, factors, and correlations."
+                    }
+                ]
+}

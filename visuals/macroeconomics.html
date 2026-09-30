@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Macroeconomics — Visual Guide</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 900px; margin: 0 auto; padding: 16px 16px 40px; color: #1a1a1a; line-height: 1.6; background: #fff; }
+  h1.page { font-size: 2em; border-bottom: 3px solid #1a1a1a; padding-bottom: 0.3em; margin-bottom: 0.2em; }
+  h1 { font-size: 1.5em; margin-top: 2.2em; border-bottom: 2px solid #e5e5e5; padding-bottom: 0.25em; }
+  h2 { font-size: 1.05em; margin-top: 0.9em; color: #333; }
+  p { margin: 0.45em 0; font-size: 0.95em; }
+  .intro { color: #444; margin-bottom: 4px; }
+  .chart-box { background: #fafafa; border: 1px solid #e5e5e5; border-radius: 8px; padding: 18px 22px; margin: 14px 0 20px; }
+  .chart-wrap { position: relative; height: 300px; }
+  .chart-wrap-sm { position: relative; height: 250px; }
+  .tabs { display: flex; gap: 7px; margin-bottom: 12px; flex-wrap: wrap; }
+  .tab { padding: 5px 14px; border: 1px solid #ccc; border-radius: 18px; cursor: pointer; font-size: 0.85em; background: #fff; transition: all 0.12s; user-select: none; }
+  .tab.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+  .note { background: #f4f4f4; border-left: 3px solid #bbb; padding: 8px 14px; margin: 8px 0; font-size: 0.88em; }
+  table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 0.89em; }
+  th, td { border: 1px solid #e0e0e0; padding: 7px 11px; text-align: left; }
+  th { background: #f4f4f4; font-weight: 600; }
+  tr:nth-child(even) td { background: #fafafa; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .nav { font-size: 0.83em; color: #888; margin-bottom: 1.5em; }
+  .nav a { color: #555; text-decoration: none; }
+</style>
+</head>
+<body>
+
+
+<h1 class="page">Macroeconomics</h1>
+<p class="intro">How entire economies behave — GDP, inflation, unemployment, interest rates, and the government and central bank tools that try to manage them.</p>
+
+<!-- ===== 1. AD-AS ===== -->
+<h1>1. Aggregate Demand &amp; Aggregate Supply (AD-AS)</h1>
+<p class="intro">The macro equivalent of supply &amp; demand. Instead of one market, this is the entire economy. Y-axis = price level (inflation), X-axis = real GDP (economic output). Shocks shift these curves; the economy adjusts to a new equilibrium.</p>
+
+<div class="chart-box">
+  <div class="tabs" id="adas-tabs">
+    <div class="tab active" onclick="setADAS('base',this)">Equilibrium</div>
+    <div class="tab" onclick="setADAS('ad-right',this)">AD Shock ↑ (stimulus)</div>
+    <div class="tab" onclick="setADAS('ad-left',this)">AD Shock ↓ (recession)</div>
+    <div class="tab" onclick="setADAS('as-right',this)">AS Shock ↑ (productivity)</div>
+    <div class="tab" onclick="setADAS('as-left',this)">AS Shock ↓ (stagflation)</div>
+    <div class="tab" onclick="setADAS('lras',this)">Long Run (LRAS)</div>
+  </div>
+  <div class="chart-wrap"><canvas id="adasChart"></canvas></div>
+  <p id="adasMsg" class="note" style="margin-top:8px;"></p>
+  <table>
+    <tr><th>Curve</th><th>What shifts it RIGHT</th><th>Effect on P, Y</th></tr>
+    <tr><td>AD (Aggregate Demand)</td><td>Gov't spending ↑, tax cuts, Fed cuts rates, consumer confidence ↑, exports ↑</td><td>P ↑, Y ↑</td></tr>
+    <tr><td>SRAS (Short-run AS)</td><td>Input costs ↓, technology ↑, productivity ↑</td><td>P ↓, Y ↑ (best case: boom with low inflation)</td></tr>
+    <tr><td>LRAS (Long-run AS)</td><td>Capital accumulation, education, tech, population, institutions</td><td>Potential GDP grows — can produce more without inflation pressure</td></tr>
+  </table>
+</div>
+
+<!-- ===== 2. BUSINESS CYCLE ===== -->
+<h1>2. The Business Cycle — GDP Over Time</h1>
+<p class="intro">GDP doesn't grow in a straight line. It cycles around a long-run trend, driven by shocks, credit cycles, and policy responses. Knowing where you are in the cycle changes what assets to own and what economic data to watch.</p>
+
+<div class="chart-box">
+  <div class="chart-wrap"><canvas id="bcChart"></canvas></div>
+  <table>
+    <tr><th>Phase</th><th>GDP</th><th>Unemployment</th><th>Inflation</th><th>Fed stance</th><th>Best assets</th></tr>
+    <tr><td><strong>Early Expansion</strong></td><td>Rising</td><td>Falling fast</td><td>Low, rising</td><td>Easing / neutral</td><td>Stocks (financials, discretionary), credit</td></tr>
+    <tr><td><strong>Mid Expansion</strong></td><td>Above trend</td><td>Low</td><td>Moderate</td><td>Neutral</td><td>Stocks (tech, industrials), commodities</td></tr>
+    <tr><td><strong>Late Expansion</strong></td><td>Peak, slowing</td><td>Very low</td><td>High &amp; rising</td><td>Tightening</td><td>Energy, real assets, short duration bonds</td></tr>
+    <tr><td><strong>Recession</strong></td><td>Contracting</td><td>Rising fast</td><td>Falling</td><td>Easing hard</td><td>Treasuries, gold, cash, defensive equities</td></tr>
+    <tr><td><strong>Trough / Recovery</strong></td><td>Bottoming</td><td>Peak</td><td>Low</td><td>Easing</td><td>Back to risk assets early</td></tr>
+  </table>
+</div>
+
+<!-- ===== 3. PHILLIPS CURVE ===== -->
+<h1>3. Phillips Curve — Inflation vs. Unemployment Trade-off</h1>
+<p class="intro">The empirical relationship between inflation and unemployment — one of the most debated charts in all of economics. Low unemployment → tight labor markets → wage pressure → inflation. The Fed must balance both sides (the "dual mandate").</p>
+
+<div class="chart-box">
+  <div class="tabs" id="pc-tabs">
+    <div class="tab active" onclick="setPC2('srpc',this)">Short-Run PC</div>
+    <div class="tab" onclick="setPC2('lrpc',this)">Long-Run PC (Vertical)</div>
+    <div class="tab" onclick="setPC2('stagflation',this)">Stagflation Shift</div>
+    <div class="tab" onclick="setPC2('expectations',this)">Expectations-Augmented</div>
+  </div>
+  <div class="chart-wrap"><canvas id="pcChart2"></canvas></div>
+  <p id="pcMsg2" class="note" style="margin-top:8px;"></p>
+  <div class="note">
+    <strong>The 1970s breakdown:</strong> The Phillips Curve appeared to shift outward — both inflation AND unemployment were high simultaneously ("stagflation"). Caused by oil price shocks (cost-push inflation) plus entrenched inflationary expectations. Paul Volcker solved it 1979–82 by raising rates to 20%, accepting a severe recession to re-anchor expectations.
+  </div>
+</div>
+
+<!-- ===== 4. YIELD CURVE ===== -->
+<h1>4. The Yield Curve</h1>
+<p class="intro">Plots US Treasury yields across all maturities (3-month → 30-year). Its shape summarizes the bond market's expectations for growth and interest rates. The most watched chart in macro.</p>
+
+<div class="chart-box">
+  <div class="tabs" id="yc-tabs">
+    <div class="tab active" onclick="setYC2('normal',this)">Normal</div>
+    <div class="tab" onclick="setYC2('flat',this)">Flat</div>
+    <div class="tab" onclick="setYC2('inverted',this)">Inverted</div>
+    <div class="tab" onclick="setYC2('all',this)">All Three</div>
+    <div class="tab" onclick="setYC2('2s10s',this)">2s10s Spread (History)</div>
+  </div>
+  <div class="chart-wrap"><canvas id="ycChart2"></canvas></div>
+  <p id="ycMsg2" class="note" style="margin-top:8px;"></p>
+  <table>
+    <tr><th>Shape</th><th>Signal</th><th>Typical Phase</th><th>2s10s Spread</th></tr>
+    <tr><td>Normal (steep)</td><td>Growth expected, compensation for time risk</td><td>Early expansion</td><td>+150 to +250 bps</td></tr>
+    <tr><td>Flat</td><td>Uncertainty, late cycle</td><td>Late expansion</td><td>0 to +50 bps</td></tr>
+    <tr><td>Inverted</td><td>Market expects rate cuts → slowdown ahead</td><td>Pre-recession</td><td>Negative (e.g., −50 bps)</td></tr>
+    <tr><td>Bear steepening</td><td>Long rates rise faster than short — inflation concern</td><td>Recovery/inflation</td><td>Widening from a low base</td></tr>
+  </table>
+</div>
+
+<!-- ===== 5. LOANABLE FUNDS ===== -->
+<h1>5. The Loanable Funds Market</h1>
+<p class="intro">Determines the real interest rate. Savers supply funds; borrowers demand them. The equilibrium rate balances saving and investment across the economy. Government borrowing competes with private borrowers ("crowding out").</p>
+
+<div class="chart-box">
+  <div class="tabs" id="lf-tabs">
+    <div class="tab active" onclick="setLF('base',this)">Equilibrium</div>
+    <div class="tab" onclick="setLF('gov-borrow',this)">Gov't Borrowing ↑ (crowding out)</div>
+    <div class="tab" onclick="setLF('savings-rise',this)">Private Savings ↑</div>
+  </div>
+  <div class="chart-wrap-sm"><canvas id="lfChart"></canvas></div>
+  <p id="lfMsg" class="note" style="margin-top:8px;"></p>
+</div>
+
+<!-- ===== 6. MONEY MARKET ===== -->
+<h1>6. The Money Market</h1>
+<p class="intro">Determines the nominal interest rate in the short run. The Fed controls money supply (vertical line — it sets the target, doesn't respond to interest rates). Money demand slopes downward — higher rates make holding cash less attractive.</p>
+
+<div class="chart-box">
+  <div class="tabs" id="mm-tabs">
+    <div class="tab active" onclick="setMM('base',this)">Equilibrium</div>
+    <div class="tab" onclick="setMM('ms-right',this)">Fed Eases (MS ↑)</div>
+    <div class="tab" onclick="setMM('ms-left',this)">Fed Tightens (MS ↓)</div>
+    <div class="tab" onclick="setMM('md-right',this)">Money Demand ↑ (GDP growth)</div>
+  </div>
+  <div class="chart-wrap-sm"><canvas id="mmChart"></canvas></div>
+  <p id="mmMsg" class="note" style="margin-top:8px;"></p>
+</div>
+
+<!-- ===== 7. LAFFER CURVE ===== -->
+<h1>7. The Laffer Curve</h1>
+<p class="intro">Shows the relationship between tax rates and government tax revenue. At 0% or 100%, revenue is zero. Somewhere between, revenue is maximized. The key debate: what tax rate maximizes revenue, and what rate is currently "too high"? Politicians on both sides weaponize this without data.</p>
+
+<div class="chart-box">
+  <div class="chart-wrap-sm"><canvas id="lafferChart"></canvas></div>
+  <div class="note">
+    <strong>Key insight:</strong> The curve itself is not controversial — it's math. The debate is empirical: is the current tax rate on the left side (raising taxes = more revenue) or right side (cutting taxes = more revenue)? Most economists think US income tax rates are on the left side of the curve (raising rates would increase revenue). Supply-siders argue otherwise. The top income tax rate in the US was 91% in the 1950s and still generated strong growth — evidence the curve's peak is likely well above current US rates.
+  </div>
+</div>
+
+<!-- ===== 8. OKUN'S LAW ===== -->
+<h1>8. Okun's Law — GDP Growth vs. Unemployment</h1>
+<p class="intro">Empirical relationship: for every 1% increase in unemployment above the natural rate, GDP is roughly 2% below potential. When the economy is growing, unemployment falls. When it contracts, unemployment rises — but with a lag.</p>
+
+<div class="chart-box">
+  <div class="chart-wrap-sm"><canvas id="okunChart"></canvas></div>
+  <div class="note">
+    <strong>Okun's coefficient ≈ 2:</strong> For every 1 percentage point rise in unemployment, real GDP falls about 2% below potential. Modern estimates range from 1.5× to 2.5×, varying by country and time period. The relationship isn't perfectly stable — labor hoarding, part-time work, and productivity changes all add noise.
+  </div>
+  <table>
+    <tr><th>GDP growth</th><th>Expected Δ unemployment</th><th>Implication</th></tr>
+    <tr><td>+4% (above trend)</td><td>−1%</td><td>Labor market tightens, unemployment falls</td></tr>
+    <tr><td>+2% (at trend/potential)</td><td>~0%</td><td>Unemployment stable (natural rate maintained)</td></tr>
+    <tr><td>0% (stagnation)</td><td>+1%</td><td>Unemployment rises even with no contraction</td></tr>
+    <tr><td>−2% (recession)</td><td>+2%</td><td>Significant job losses, rising unemployment</td></tr>
+  </table>
+</div>
+
+<!-- ===== 9. FISCAL MULTIPLIER ===== -->
+<h1>9. The Fiscal Multiplier</h1>
+<p class="intro">When the government spends $1, how much does GDP rise by? If the multiplier is 1.5, $1 of spending creates $1.50 of GDP. If it's 0.8, it creates less than $1. The multiplier varies wildly with economic conditions — highest during a recession (lots of spare capacity), lowest during full employment (crowding out).</p>
+
+<div class="chart-box">
+  <div class="tabs" id="mult-tabs">
+    <div class="tab active" onclick="setMult('recession',this)">Recession (high multiplier)</div>
+    <div class="tab" onclick="setMult('full',this)">Full Employment (low multiplier)</div>
+    <div class="tab" onclick="setMult('rounds',this)">Spending Rounds</div>
+  </div>
+  <div class="chart-wrap-sm"><canvas id="multChart"></canvas></div>
+  <p id="multMsg" class="note" style="margin-top:8px;"></p>
+</div>
+
+<!-- ===== 10. IS-LM ===== -->
+<h1>10. IS-LM Model</h1>
+<p class="intro">A more complete macro model that combines goods markets (IS curve) and money markets (LM curve). IS = investment-saving balance (goods market). LM = money supply-demand (money market). Where they cross = simultaneous equilibrium in both markets — the economy's short-run equilibrium.</p>
+
+<div class="chart-box">
+  <div class="tabs" id="islm-tabs">
+    <div class="tab active" onclick="setISLM('base',this)">Equilibrium</div>
+    <div class="tab" onclick="setISLM('fiscal',this)">Fiscal Stimulus (IS right)</div>
+    <div class="tab" onclick="setISLM('monetary',this)">Monetary Easing (LM right)</div>
+    <div class="tab" onclick="setISLM('liquidity',this)">Liquidity Trap</div>
+  </div>
+  <div class="chart-wrap"><canvas id="islmChart"></canvas></div>
+  <p id="islmMsg" class="note" style="margin-top:8px;"></p>
+  <table>
+    <tr><th>Curve</th><th>Slopes</th><th>Reason</th></tr>
+    <tr><td>IS (Investment-Savings)</td><td>Downward</td><td>Lower interest rates → more investment → higher output</td></tr>
+    <tr><td>LM (Liquidity-Money)</td><td>Upward</td><td>Higher output → higher money demand → higher interest rates</td></tr>
+    <tr><td>Fiscal policy (IS shift)</td><td>IS shifts right</td><td>Government spending ↑ or taxes ↓ raises output at any given interest rate</td></tr>
+    <tr><td>Monetary policy (LM shift)</td><td>LM shifts right</td><td>Fed expands money supply → lower rates at any given output level</td></tr>
+  </table>
+</div>
+
+<script>
+const CD = { responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'top',labels:{font:{size:11},boxWidth:14}}} };
+
+// ===== AD-AS =====
+let adasChart;
+const Y = Array.from({length:51},(_,i)=>i*2);
+function adFunc(shift=0) { return Y.map(y=>Math.max(0,100-y*0.8+shift)); }
+function asFunc(shift=0) { return Y.map(y=>Math.max(0,10+y*0.8+shift)); }
+const adasCfg = {
+  'base': {
+    msg:'Equilibrium: Price Level ≈ 55, Output ≈ 56. This represents "potential GDP" — full employment without overheating. The economy naturally gravitates here in the long run.',
+    ds:()=>[
+      {label:'AD (Aggregate Demand)',data:adFunc(),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},
+      {label:'SRAS (Short-run AS)',data:asFunc(),borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},
+    ]
+  },
+  'ad-right': {
+    msg:'Positive AD shock (fiscal stimulus, Fed rate cut, confidence surge). New equilibrium: HIGHER price level AND higher output. Short run: good — growth up, unemployment down. But inflation rises too. If already at potential, this is purely inflationary (LRAS is vertical).',
+    ds:()=>[
+      {label:'Old AD',data:adFunc(),borderColor:'#93c5fd',borderDash:[4,3],tension:0.2,pointRadius:0,fill:false},
+      {label:'New AD →',data:adFunc(20),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},
+      {label:'SRAS',data:asFunc(),borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2},
+    ]
+  },
+  'ad-left': {
+    msg:'Negative AD shock (financial crisis, confidence collapse, Fed overtightens). Output falls, price level falls. Recession: unemployment rises, inflation falls. Fed response: cut rates (shift AD right). Fiscal response: stimulus package.',
+    ds:()=>[
+      {label:'Old AD',data:adFunc(),borderColor:'#93c5fd',borderDash:[4,3],tension:0.2,pointRadius:0,fill:false},
+      {label:'New AD ←',data:adFunc(-20),borderColor:'#1d4ed8',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},
+      {label:'SRAS',data:asFunc(),borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2},
+    ]
+  },
+  'as-right': {
+    msg:'Positive supply shock (oil prices fall, technology improves, productivity boom). Output rises AND inflation falls simultaneously — the best case scenario. 1990s US boom was partly this. Called "non-inflationary growth."',
+    ds:()=>[
+      {label:'AD',data:adFunc(),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2},
+      {label:'Old SRAS',data:asFunc(),borderColor:'#fca5a5',borderDash:[4,3],tension:0.2,pointRadius:0,fill:false},
+      {label:'New SRAS →',data:asFunc(-20),borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},
+    ]
+  },
+  'as-left': {
+    msg:'Negative supply shock (STAGFLATION): oil embargo, supply chain crisis. Output FALLS while prices RISE. The worst macro combination — the Fed\'s tools can\'t fix both simultaneously (cutting rates helps output but worsens inflation; raising rates helps inflation but kills output). 1973–75 and 2021–22 both showed this.',
+    ds:()=>[
+      {label:'AD',data:adFunc(),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2},
+      {label:'Old SRAS',data:asFunc(),borderColor:'#fca5a5',borderDash:[4,3],tension:0.2,pointRadius:0,fill:false},
+      {label:'New SRAS ← (stagflation)',data:asFunc(20),borderColor:'#b91c1c',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},
+    ]
+  },
+  'lras': {
+    msg:'Long-run AS is VERTICAL at potential GDP (Y*). In the long run, prices and wages adjust fully — output can\'t stay above or below potential permanently. Policy can shift potential GDP rightward (growth) but can\'t sustainably boost output beyond it with demand-side tools (just creates inflation).',
+    ds:()=>[
+      {label:'AD',data:adFunc(),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2},
+      {label:'SRAS',data:asFunc(),borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2},
+      {label:'LRAS (Potential GDP = 56)',data:Y.map(()=>null).map((_,i)=>i===28?{y:0,x:56}:null),borderColor:'#16a34a',tension:0,pointRadius:0,fill:false,borderWidth:0},
+      {label:'LRAS (vertical)',data:Y.map((y,i)=>i===28?50:null),borderColor:'#16a34a',tension:0,pointRadius:0,fill:false,borderWidth:3},
+    ]
+  }
+};
+function setADAS(mode,el) {
+  document.querySelectorAll('#adas-tabs .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  document.getElementById('adasMsg').textContent=adasCfg[mode].msg;
+  adasChart.data.datasets=adasCfg[mode].ds();
+  adasChart.update();
+}
+(function initADAS(){
+  const ctx=document.getElementById('adasChart').getContext('2d');
+  adasChart=new Chart(ctx,{type:'line',data:{labels:Y,datasets:adasCfg['base'].ds()},options:{...CD,scales:{x:{title:{display:true,text:'Real GDP (Y)'},max:100},y:{title:{display:true,text:'Price Level (P)'},min:0,max:110}}}});
+  document.getElementById('adasMsg').textContent=adasCfg['base'].msg;
+})();
+
+// ===== BUSINESS CYCLE =====
+(function initBC(){
+  const n=120, t=Array.from({length:n},(_,i)=>i);
+  const trend=t.map(i=>50+i*0.5);
+  const gdp=t.map(i=>50+i*0.5+18*Math.sin(i*0.18)+5*Math.sin(i*0.5));
+  const ctx=document.getElementById('bcChart').getContext('2d');
+  new Chart(ctx,{type:'line',data:{labels:t,datasets:[
+    {label:'Real GDP',data:gdp,borderColor:'#2563eb',tension:0.3,pointRadius:0,fill:false,borderWidth:2.5},
+    {label:'Long-run Trend (Potential GDP)',data:trend,borderColor:'#9ca3af',borderDash:[6,4],tension:0,pointRadius:0,fill:false,borderWidth:1.5},
+  ]},options:{...CD,scales:{x:{display:false},y:{display:false}},plugins:{...CD.plugins,annotation:{}}}});
+})();
+
+// ===== PHILLIPS CURVE =====
+let pcChart2;
+const U=Array.from({length:18},(_,i)=>i*0.5+1.5);
+function srpc(offset=0){return U.map(u=>Math.max(0,14/(u-1)+offset));}
+const pcCfg2={
+  srpc:{msg:'Short-run Phillips Curve: clear downward slope — lower unemployment comes at the cost of higher inflation. Fed exploits this trade-off with monetary policy. Moving along the curve (e.g., cutting rates) → lower U, higher π. Shifting the curve (changing expectations) → different trade-off entirely.',ds:[{label:'SRPC',data:U.map((u,i)=>({x:u,y:srpc()[i]})),showLine:true,tension:0.4,borderColor:'#2563eb',pointRadius:0,fill:false,borderWidth:2.5,type:'scatter'},{label:'Fed\'s inflation target (2%)',data:[{x:1,y:2},{x:10,y:2}],showLine:true,borderColor:'#16a34a',borderDash:[5,3],pointRadius:0,fill:false,type:'scatter'},{label:'Natural Rate of Unemployment (~4%)',data:[{x:4,y:0},{x:4,y:18}],showLine:true,borderColor:'#dc2626',borderDash:[5,3],pointRadius:0,fill:false,type:'scatter'}]},
+  lrpc:{msg:'Long-run Phillips Curve is VERTICAL at the natural rate of unemployment (NAIRU ≈ 4%). In the long run, trying to hold unemployment below NAIRU just raises inflation — it doesn\'t sustainably reduce unemployment. Workers adjust wage demands upward, restoring the natural rate but at higher inflation. Stagflation lesson.',ds:[{label:'SRPC (current)',data:U.map((u,i)=>({x:u,y:srpc()[i]})),showLine:true,tension:0.4,borderColor:'#93c5fd',pointRadius:0,fill:false,type:'scatter'},{label:'LRPC (vertical at NAIRU)',data:[{x:4,y:0},{x:4,y:18}],showLine:true,borderColor:'#1a1a1a',pointRadius:0,fill:false,borderWidth:3,type:'scatter'}]},
+  stagflation:{msg:'Stagflation: the SRPC shifts OUTWARD (higher inflation at every unemployment level). 1973: OPEC oil embargo hit supply. Inflation surged while unemployment rose — both worsened simultaneously. The old curve became useless. Volcker moved the economy back by crushing demand (deep recession), then re-anchoring expectations — shifting the curve back inward.',ds:[{label:'Original SRPC (1960s)',data:U.map((u,i)=>({x:u,y:srpc()[i]})),showLine:true,tension:0.4,borderColor:'#93c5fd',borderDash:[5,3],pointRadius:0,fill:false,type:'scatter'},{label:'Shifted SRPC (1970s stagflation)',data:U.map((u,i)=>({x:u,y:srpc(5)[i]})),showLine:true,tension:0.4,borderColor:'#dc2626',pointRadius:0,fill:false,borderWidth:2.5,type:'scatter'}]},
+  expectations:{msg:'Expectations-augmented PC: inflation expectations SHIFT the curve. If workers expect 3% inflation, they demand 3% wage hikes; firms raise prices 3%. The "expected" rate becomes the baseline. This is why central bank CREDIBILITY matters enormously — if people trust the Fed to hit 2%, the curve stays near 2% even during shocks.',ds:[{label:'PC with 0% expected inflation',data:U.map((u,i)=>({x:u,y:srpc(-2)[i]})),showLine:true,tension:0.4,borderColor:'#86efac',pointRadius:0,fill:false,type:'scatter'},{label:'PC with 2% expected inflation',data:U.map((u,i)=>({x:u,y:srpc()[i]})),showLine:true,tension:0.4,borderColor:'#2563eb',pointRadius:0,fill:false,borderWidth:2,type:'scatter'},{label:'PC with 5% expected inflation',data:U.map((u,i)=>({x:u,y:srpc(3)[i]})),showLine:true,tension:0.4,borderColor:'#dc2626',pointRadius:0,fill:false,type:'scatter'}]}
+};
+function setPC2(mode,el){
+  document.querySelectorAll('#pc-tabs .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  document.getElementById('pcMsg2').textContent=pcCfg2[mode].msg;
+  pcChart2.data.datasets=pcCfg2[mode].ds;
+  pcChart2.update();
+}
+(function initPC2(){
+  const ctx=document.getElementById('pcChart2').getContext('2d');
+  pcChart2=new Chart(ctx,{type:'scatter',data:{datasets:pcCfg2['srpc'].ds},options:{...CD,scales:{x:{title:{display:true,text:'Unemployment Rate (%)'},min:1,max:11},y:{title:{display:true,text:'Inflation Rate (%)'},min:0,max:18}}}});
+  document.getElementById('pcMsg2').textContent=pcCfg2['srpc'].msg;
+})();
+
+// ===== YIELD CURVE =====
+let ycChart2;
+const ycMat=['3M','6M','1Y','2Y','3Y','5Y','7Y','10Y','20Y','30Y'];
+const ycData2={normal:[4.5,4.6,4.65,4.5,4.45,4.4,4.45,4.55,4.7,4.8],flat:[5.1,5.1,5.05,5.0,5.0,4.95,4.95,4.95,5.0,5.0],inverted:[5.4,5.5,5.4,5.3,5.1,4.85,4.7,4.5,4.4,4.35]};
+const ycHist={years:['2019','2020','2021','2022','2023','2024'],spread:[32,-33,-4,-97,-101,32]};
+const ycCfg2={
+  normal:{msg:'Normal (upward sloping): long rates above short rates. Investors demand a "term premium" for locking up money longer. Reflects expected growth and inflation. Classic early-to-mid cycle. Banks profit by borrowing short (deposits) and lending long (mortgages).',ds:[{label:'Normal Yield Curve',data:ycData2.normal,borderColor:'#16a34a',pointRadius:4,tension:0.4,fill:false,borderWidth:2.5}]},
+  flat:{msg:'Flat: short and long rates nearly equal. The term premium has compressed to near zero. Signals uncertainty, growth concerns, or that the Fed has raised rates near their peak. Bond market is saying "not sure where we go from here." Late cycle warning.',ds:[{label:'Flat Yield Curve',data:ycData2.flat,borderColor:'#ca8a04',pointRadius:4,tension:0.4,fill:false,borderWidth:2.5}]},
+  inverted:{msg:'Inverted: 2-year yield ABOVE 10-year yield (2s10s spread negative). Bond market expects the Fed to CUT rates in the future, implying economic slowdown. Has preceded EVERY US recession since 1955 (with 6–18 month lead time). Not a precise timer, but the track record is unmatched in macro.',ds:[{label:'Inverted Yield Curve',data:ycData2.inverted,borderColor:'#dc2626',pointRadius:4,tension:0.4,fill:false,borderWidth:2.5}]},
+  all:{msg:'All three overlaid. Key dynamic: the short end is anchored by the Fed funds rate (near-term rate expectations). The long end is determined by long-term growth/inflation expectations and term premium. The gap between them = 2s10s spread.',ds:[{label:'Normal',data:ycData2.normal,borderColor:'#16a34a',pointRadius:3,tension:0.4,fill:false,borderWidth:2},{label:'Flat',data:ycData2.flat,borderColor:'#ca8a04',pointRadius:3,tension:0.4,fill:false,borderWidth:2},{label:'Inverted',data:ycData2.inverted,borderColor:'#dc2626',pointRadius:3,tension:0.4,fill:false,borderWidth:2}]},
+};
+function setYC2(mode,el){
+  document.querySelectorAll('#yc-tabs .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  if(mode==='2s10s'){
+    ycChart2.data.labels=ycHist.years;
+    ycChart2.data.datasets=[{label:'2s10s Spread (bps)',data:ycHist.spread,backgroundColor:ycHist.spread.map(v=>v>=0?'rgba(22,163,74,0.6)':'rgba(220,38,38,0.6)'),type:'bar'}];
+    ycChart2.options.scales.y.title.text='Spread (basis points)';
+    ycChart2.options.scales.y.min=-150; ycChart2.options.scales.y.max=300;
+    document.getElementById('ycMsg2').textContent='2s10s spread (10yr yield minus 2yr yield) over time. When negative = inverted curve. The 2022–2023 inversion was the deepest in 40 years, driven by the fastest rate hiking cycle since Volcker.';
+  } else {
+    ycChart2.data.labels=ycMat;
+    ycChart2.data.datasets=ycCfg2[mode].ds;
+    ycChart2.options.scales.y.title.text='Yield (%)';
+    ycChart2.options.scales.y.min=3.5; ycChart2.options.scales.y.max=6;
+    document.getElementById('ycMsg2').textContent=ycCfg2[mode].msg;
+  }
+  ycChart2.update();
+}
+(function initYC2(){
+  const ctx=document.getElementById('ycChart2').getContext('2d');
+  ycChart2=new Chart(ctx,{type:'line',data:{labels:ycMat,datasets:ycCfg2['normal'].ds},options:{...CD,scales:{x:{title:{display:true,text:'Maturity'}},y:{title:{display:true,text:'Yield (%)'},min:3.5,max:6}}}});
+  document.getElementById('ycMsg2').textContent=ycCfg2['normal'].msg;
+})();
+
+// ===== LOANABLE FUNDS =====
+let lfChart;
+const LFq=Array.from({length:11},(_,i)=>i*10);
+function lfDemand(sh=0){return LFq.map(q=>100-q*1.5+sh);}
+function lfSupply(sh=0){return LFq.map(q=>10+q*1.5+sh);}
+const lfCfg={
+  base:{msg:'Equilibrium real interest rate ≈ 4.5% (midpoint). Savers supply more funds at higher rates; borrowers demand fewer funds at higher rates. The rate clears the market.',ds:()=>[{label:'Demand for Funds',data:lfDemand(),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},{label:'Supply of Funds (Savings)',data:lfSupply(),borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5}]},
+  'gov-borrow':{msg:'Government increases borrowing (deficit spending) → demand for loanable funds shifts right → interest rate rises. Private investment is "crowded out" — less private borrowing at the higher rate. Size of effect depends on whether the economy is at full employment.',ds:()=>[{label:'Old Demand',data:lfDemand(),borderColor:'#93c5fd',borderDash:[4,3],tension:0.2,pointRadius:0,fill:false},{label:'New Demand (+ gov\'t borrowing)',data:lfDemand(15),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},{label:'Supply',data:lfSupply(),borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2}]},
+  'savings-rise':{msg:'Private savings increase (households save more, lower consumption). Supply of funds shifts right → interest rate falls → private investment rises. Higher saving can lower rates, stimulate investment, and boost long-run growth — but short-run GDP can fall if the savings rate rises suddenly ("paradox of thrift").',ds:()=>[{label:'Demand',data:lfDemand(),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2},{label:'Old Supply',data:lfSupply(),borderColor:'#fca5a5',borderDash:[4,3],tension:0.2,pointRadius:0,fill:false},{label:'New Supply (savings ↑)',data:lfSupply(15),borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5}]}
+};
+function setLF(mode,el){
+  document.querySelectorAll('#lf-tabs .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  document.getElementById('lfMsg').textContent=lfCfg[mode].msg;
+  lfChart.data.datasets=lfCfg[mode].ds();
+  lfChart.update();
+}
+(function initLF(){
+  const ctx=document.getElementById('lfChart').getContext('2d');
+  lfChart=new Chart(ctx,{type:'line',data:{labels:LFq,datasets:lfCfg['base'].ds()},options:{...CD,scales:{x:{title:{display:true,text:'Quantity of Loanable Funds ($B)'}},y:{title:{display:true,text:'Real Interest Rate (%)'},min:0,max:110}}}});
+  document.getElementById('lfMsg').textContent=lfCfg['base'].msg;
+})();
+
+// ===== MONEY MARKET =====
+let mmChart;
+const MMq=Array.from({length:11},(_,i)=>i*10);
+function mmDemand(sh=0){return MMq.map(q=>100-q*1.5+sh);}
+const mmCfg={
+  base:{msg:'Money market equilibrium: Fed sets money supply (vertical line — doesn\'t respond to interest rates). Money demand slopes down — at higher rates, people prefer bonds over cash. Intersection = nominal interest rate.',ds:()=>[{label:'Money Demand (Md)',data:mmDemand(),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},{label:'Money Supply (Ms) — Fed set',data:MMq.map(q=>q===30?null:null).map((_,i)=>i===3?55:null),borderColor:'#dc2626',borderWidth:3,pointRadius:0,fill:false},{label:'MS (vertical at Q=30)',data:[55],borderColor:'#dc2626',borderWidth:3,type:'scatter',pointRadius:0}]},
+  'ms-right':{msg:'Fed eases: buys bonds, expanding money supply. MS shifts right → nominal interest rate FALLS. Lower rates → cheaper borrowing → investment and consumption rise → GDP up. This is how monetary easing works in this model.',ds:()=>[{label:'Money Demand',data:mmDemand(),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2},{label:'Old MS',data:MMq.map((_,i)=>i===3?55:null),borderColor:'#fca5a5',borderWidth:2,type:'bar',borderDash:[4,3]},{label:'New MS (expanded)',data:MMq.map((_,i)=>i===5?55:null),borderColor:'#dc2626',borderWidth:3,type:'bar'}]},
+  'ms-left':{msg:'Fed tightens: sells bonds, shrinking money supply. MS shifts left → nominal interest rate RISES. Higher rates → more expensive borrowing → investment and consumption fall → slows inflation (but also slows GDP).',ds:()=>[{label:'Money Demand',data:mmDemand(),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2},{label:'New MS (contracted)',data:MMq.map((_,i)=>i===2?55:null),borderColor:'#dc2626',borderWidth:3,type:'bar'},{label:'Old MS',data:MMq.map((_,i)=>i===3?55:null),borderColor:'#fca5a5',borderWidth:2,type:'bar',borderDash:[4,3]}]},
+  'md-right':{msg:'Money demand rises (GDP grows, more transactions need money). MD shifts right → at the same money supply, interest rate rises. The Fed must expand MS to keep rates stable. Or it can allow rates to rise to cool the economy — the key policy choice.',ds:()=>[{label:'Old Demand',data:mmDemand(),borderColor:'#93c5fd',borderDash:[4,3],tension:0.2,pointRadius:0,fill:false},{label:'New Demand (GDP ↑)',data:mmDemand(15),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},{label:'MS (fixed)',data:MMq.map((_,i)=>i===3?55:null),borderColor:'#dc2626',borderWidth:3,type:'bar'}]}
+};
+function setMM(mode,el){
+  document.querySelectorAll('#mm-tabs .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  document.getElementById('mmMsg').textContent=mmCfg[mode].msg;
+  mmChart.data.datasets=mmCfg[mode].ds();
+  mmChart.update();
+}
+(function initMM(){
+  const ctx=document.getElementById('mmChart').getContext('2d');
+  mmChart=new Chart(ctx,{type:'line',data:{labels:MMq,datasets:mmCfg['base'].ds()},options:{...CD,scales:{x:{title:{display:true,text:'Quantity of Money'}},y:{title:{display:true,text:'Nominal Interest Rate (%)'},min:0,max:110}}}});
+  document.getElementById('mmMsg').textContent=mmCfg['base'].msg;
+})();
+
+// ===== LAFFER CURVE =====
+(function initLaffer(){
+  const ctx=document.getElementById('lafferChart').getContext('2d');
+  const rates=Array.from({length:101},(_,i)=>i);
+  const revenue=rates.map(r=>{const t=r/100; return 1000*t*(1-t)*4;}); // peaks at 50%
+  new Chart(ctx,{type:'line',data:{labels:rates,datasets:[{label:'Tax Revenue',data:revenue,borderColor:'#2563eb',tension:0.4,pointRadius:0,fill:true,backgroundColor:'rgba(37,99,235,0.08)',borderWidth:2.5}]},options:{...CD,scales:{x:{title:{display:true,text:'Tax Rate (%)'}},y:{title:{display:true,text:'Tax Revenue ($)'},min:0}}}});
+})();
+
+// ===== OKUN'S LAW =====
+(function initOkun(){
+  const ctx=document.getElementById('okunChart').getContext('2d');
+  const gdpGrowth=Array.from({length:13},(_,i)=>i-3);
+  const dunempl=gdpGrowth.map(g=>-(g-2)*0.5); // Okun's rule: ΔU = -0.5*(growth - 2%)
+  new Chart(ctx,{type:'line',data:{labels:gdpGrowth,datasets:[
+    {label:'ΔUnemployment (pp)',data:dunempl,borderColor:'#dc2626',tension:0.2,pointRadius:4,fill:false,borderWidth:2.5},
+    {label:'Zero line',data:gdpGrowth.map(()=>0),borderColor:'#9ca3af',borderDash:[5,3],pointRadius:0,fill:false,borderWidth:1},
+  ]},options:{...CD,scales:{x:{title:{display:true,text:'Real GDP Growth (%)'}},y:{title:{display:true,text:'Change in Unemployment (pp)'}}}}});
+})();
+
+// ===== MULTIPLIER =====
+let multChart;
+const multCfg={
+  recession:{msg:'Recession (large output gap): multiplier ≈ 1.5–2.0. Idle workers and capital means government spending puts them to work without crowding out private activity. Every $1 of stimulus cascades through the economy.',ds:()=>[{label:'GDP impact by round ($B)',data:[1.0,0.7,0.49,0.34,0.24,0.17,0.12,0.08,0.06,0.04],backgroundColor:'#2563eb'}]},
+  full:{msg:'Full employment (small output gap): multiplier ≈ 0.5–0.8. Resources are already employed. Government must borrow, raising interest rates and crowding out private investment. Spending just redirects economic activity rather than expanding it.',ds:()=>[{label:'GDP impact by round ($B)',data:[1.0,0.35,0.12,0.04,0.01,0,0,0,0,0],backgroundColor:'#dc2626'}]},
+  rounds:{msg:'The multiplier works through rounds: government spends $1 → workers earn it → they spend 70% → next businesses earn that → they hire workers → those workers spend 70% → ... The marginal propensity to consume (MPC) determines how fast it dies out. Multiplier = 1/(1-MPC).',ds:()=>[{label:'Round (MPC=0.7)',data:[1.0,0.7,0.49,0.34,0.24,0.17,0.12,0.08,0.06,0.04],backgroundColor:'#16a34a'},{label:'Round (MPC=0.5)',data:[1.0,0.5,0.25,0.125,0.06,0.03,0.02,0.01,0,0],backgroundColor:'#ca8a04'}]}
+};
+function setMult(mode,el){
+  document.querySelectorAll('#mult-tabs .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  document.getElementById('multMsg').textContent=multCfg[mode].msg;
+  multChart.data.datasets=multCfg[mode].ds();
+  multChart.update();
+}
+(function initMult(){
+  const ctx=document.getElementById('multChart').getContext('2d');
+  multChart=new Chart(ctx,{type:'bar',data:{labels:Array.from({length:10},(_,i)=>'Round '+(i+1)),datasets:multCfg['recession'].ds()},options:{...CD,scales:{x:{},y:{title:{display:true,text:'$ Billions of GDP'},max:1.1}}}});
+  document.getElementById('multMsg').textContent=multCfg['recession'].msg;
+})();
+
+// ===== IS-LM =====
+let islmChart;
+const ISLMy=Array.from({length:61},(_,i)=>i);
+function isFunc(sh=0){return ISLMy.map(y=>Math.max(0,60-y*0.8+sh));}
+function lmFunc(sh=0){return ISLMy.map(y=>Math.max(0,5+y*0.7+sh));}
+const islmCfg={
+  base:{msg:'Equilibrium: IS and LM cross at Y≈38, r≈32. Both goods market (IS) and money market (LM) are simultaneously in equilibrium. This is the short-run macroeconomic equilibrium.',ds:()=>[{label:'IS (Investment-Savings)',data:isFunc(),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},{label:'LM (Money Market)',data:lmFunc(),borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5}]},
+  fiscal:{msg:'Fiscal stimulus (IS shifts RIGHT): government spending ↑ or taxes ↓ → IS moves right → new equilibrium has higher Y AND higher interest rate. Higher rate partially "crowds out" private investment — dampening the full multiplier effect. Net: output rises, but not by as much as the simple multiplier would suggest.',ds:()=>[{label:'Old IS',data:isFunc(),borderColor:'#93c5fd',borderDash:[4,3],tension:0.2,pointRadius:0,fill:false},{label:'New IS →',data:isFunc(15),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},{label:'LM (unchanged)',data:lmFunc(),borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2}]},
+  monetary:{msg:'Monetary easing (LM shifts RIGHT): Fed expands money supply → LM moves right → interest rate falls → investment rises → output rises. No crowding out. Output and interest rate move in opposite directions vs fiscal policy. Most effective when IS isn\'t too flat (investment responds to rate changes).',ds:()=>[{label:'IS (unchanged)',data:isFunc(),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2},{label:'Old LM',data:lmFunc(),borderColor:'#fca5a5',borderDash:[4,3],tension:0.2,pointRadius:0,fill:false},{label:'New LM →',data:lmFunc(-15),borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5}]},
+  liquidity:{msg:'Liquidity trap: when rates hit zero (ZLB), the LM curve becomes flat (horizontal). Monetary policy becomes ineffective — you can\'t cut rates below zero (conventionally). More money just sits idle (people hoard it at zero rates). Happened in Japan 1990s–2020s, US 2008–2015. Solution: fiscal policy (IS shift right) or unconventional monetary policy (QE).',ds:()=>[{label:'IS (weak demand)',data:isFunc(-20),borderColor:'#2563eb',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5},{label:'LM (trap: flat at r=0)',data:ISLMy.map(y=>y<25?0:5+y*0.7-17.5),borderColor:'#dc2626',tension:0.2,pointRadius:0,fill:false,borderWidth:2.5}]}
+};
+function setISLM(mode,el){
+  document.querySelectorAll('#islm-tabs .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  document.getElementById('islmMsg').textContent=islmCfg[mode].msg;
+  islmChart.data.datasets=islmCfg[mode].ds();
+  islmChart.update();
+}
+(function initISLM(){
+  const ctx=document.getElementById('islmChart').getContext('2d');
+  islmChart=new Chart(ctx,{type:'line',data:{labels:ISLMy,datasets:islmCfg['base'].ds()},options:{...CD,scales:{x:{title:{display:true,text:'Real Output (Y)'},max:60},y:{title:{display:true,text:'Interest Rate (r)'},min:0,max:70}}}});
+  document.getElementById('islmMsg').textContent=islmCfg['base'].msg;
+})();
+</script>
+</body>
+</html>

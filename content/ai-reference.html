@@ -1,0 +1,139 @@
+<p><em>How AI Works · Large Language Models · Key Concepts · The AI Landscape · What Matters</em></p>
+<p>AI is going to be the defining technology of your lifetime. Understanding how it actually works — not just the hype — is a massive advantage.</p>
+
+<h1>The Machine Learning Stack</h1>
+
+<p>Machine learning is a subset of AI where systems learn patterns from data, rather than being explicitly programmed with rules.</p>
+
+<table>
+<tr><th>Level</th><th>What It Is</th><th>Example</th></tr>
+<tr><td>Artificial Intelligence (AI)</td><td>Broad field — any technique that lets machines simulate human intelligence</td><td>Chess engines, recommendation systems, voice assistants</td></tr>
+<tr><td>Machine Learning (ML)</td><td>AI systems that learn from data. Find patterns, make predictions, improve with experience.</td><td>Netflix recommendations, spam filters, fraud detection</td></tr>
+<tr><td>Deep Learning (DL)</td><td>ML using neural networks with many layers. Learns hierarchical representations automatically.</td><td>Image recognition, speech-to-text, GPT models</td></tr>
+<tr><td>Foundation Models</td><td>Massive models trained on enormous datasets that can be fine-tuned for many tasks</td><td>GPT-4, Claude, Gemini, LLaMA</td></tr>
+<tr><td>Generative AI</td><td>AI that generates new content — text, images, code, audio, video</td><td>ChatGPT, Midjourney, Sora, GitHub Copilot, Suno</td></tr>
+</table>
+
+<h1>How Neural Networks Work</h1>
+
+<p>A neural network is loosely inspired by the brain — layers of interconnected "neurons" that transform an input into an output by learning which connections to strengthen.</p>
+
+<h2>Basic Architecture</h2>
+
+<table>
+<tr><th>Component</th><th>What It Does</th></tr>
+<tr><td>Input Layer</td><td>Takes in raw data — pixels, tokens, numbers. Each neuron = one feature.</td></tr>
+<tr><td>Hidden Layers</td><td>Where the learning happens. Each layer learns increasingly abstract representations. Early layers detect edges; later layers detect faces.</td></tr>
+<tr><td>Output Layer</td><td>Produces the prediction — a probability distribution over classes, a number, a token.</td></tr>
+<tr><td>Weights &amp; Biases</td><td>The parameters the network learns. A network with 1B parameters has 1 billion adjustable knobs.</td></tr>
+<tr><td>Activation Function</td><td>Non-linearity applied after each neuron (ReLU, sigmoid, GELU). Without this, many layers = one layer.</td></tr>
+<tr><td>Backpropagation</td><td>The training algorithm. Computes how much each weight contributed to the error, then adjusts it in the right direction (gradient descent).</td></tr>
+<tr><td>Loss Function</td><td>Measures how wrong the prediction is. Training minimizes this over millions of examples.</td></tr>
+</table>
+
+<h2>Key Neural Network Types</h2>
+
+<table>
+<tr><th>Architecture</th><th>Best For</th><th>How It Works</th><th>Examples</th></tr>
+<tr><td>CNN (Convolutional Neural Network)</td><td>Images, spatial data</td><td>Learns local patterns through filters that scan across the image. Translation-invariant.</td><td>Image recognition (ResNet, VGG), medical imaging, self-driving vision</td></tr>
+<tr><td>RNN / LSTM</td><td>Sequential data (pre-2017)</td><td>Processes sequences step by step, maintaining a hidden state as "memory"</td><td>Early NLP, time series forecasting, speech recognition</td></tr>
+<tr><td>Transformer</td><td>Text, code, images, audio — almost everything now</td><td>Attention mechanism — every token attends to every other token simultaneously. Parallelizable. Scales massively.</td><td>GPT, Claude, BERT, Whisper, DALL-E, Stable Diffusion</td></tr>
+<tr><td>GAN (Generative Adversarial Network)</td><td>Image generation (older)</td><td>Generator vs. Discriminator compete — generator tries to fool, discriminator tries to detect. Nash equilibrium = realistic images.</td><td>DeepFakes, StyleGAN, image synthesis</td></tr>
+<tr><td>Diffusion Models</td><td>Image, video, audio generation</td><td>Learn to reverse a gradual noise-adding process. Extremely high quality outputs.</td><td>Stable Diffusion, DALL-E 3, Midjourney, Sora</td></tr>
+</table>
+
+<h1>Large Language Models (LLMs)</h1>
+
+<p>The most important AI development since deep learning. LLMs are transformer-based models trained on massive text datasets to predict the next token. That's it — but it turns out that doing this at scale produces models that can reason, code, write, and learn in context.</p>
+
+<h2>How LLMs Work — The Key Ideas</h2>
+
+<table>
+<tr><th>Concept</th><th>What It Means</th></tr>
+<tr><td>Tokenization</td><td>Text is split into tokens (roughly words/subwords). GPT-4 uses ~100K tokens. "ChatGPT" might be 2 tokens: "Chat" + "GPT".</td></tr>
+<tr><td>Context Window</td><td>How much text the model can "see" at once when generating. GPT-4: 128K tokens. Claude 3.5: 200K tokens. Longer = can handle longer docs.</td></tr>
+<tr><td>Attention Mechanism</td><td>The core of the Transformer. For each token, the model learns which other tokens to pay attention to. Lets it understand relationships across long distances in text.</td></tr>
+<tr><td>Pre-training</td><td>Train on hundreds of billions of tokens from the internet, books, code. Predicting next word forces the model to learn grammar, facts, reasoning, code — everything in the training data.</td></tr>
+<tr><td>Fine-tuning</td><td>Take a pre-trained model and train it further on a specific task or style with curated data. Makes it better at that task without forgetting everything else.</td></tr>
+<tr><td>RLHF (Reinforcement Learning from Human Feedback)</td><td>Human raters rank outputs → train a reward model → use RL to push the LLM toward outputs humans prefer. How ChatGPT was made safe and helpful. Without this, models can be unhinged.</td></tr>
+<tr><td>Parameters</td><td>The "size" of the model. GPT-3: 175B params. GPT-4: rumored ~1T. More params ≠ always better — architecture, data, and training matter equally.</td></tr>
+<tr><td>Emergent Behavior</td><td>Capabilities that appear at scale with no explicit training — multi-step reasoning, few-shot learning, chain-of-thought. Not well understood; one of the active research frontiers.</td></tr>
+<tr><td>Hallucination</td><td>LLMs generate plausible-sounding but false information confidently. A fundamental limitation — they're pattern-matching machines, not truth databases.</td></tr>
+<tr><td>Temperature</td><td>Controls randomness in generation. Temperature=0: always picks highest-probability token (deterministic). Temperature=1: samples from the full distribution (creative but less reliable).</td></tr>
+</table>
+
+<h2>The Major LLMs (2025)</h2>
+
+<table>
+<tr><th>Model</th><th>Company</th><th>Strengths</th><th>Notes</th></tr>
+<tr><td>GPT-4o / o3</td><td>OpenAI</td><td>Reasoning, coding, multimodal (vision), broad capability</td><td>o3 models (reasoning-focused) are best at math and complex reasoning</td></tr>
+<tr><td>Claude 3.5 / 3.7 Sonnet</td><td>Anthropic</td><td>Writing, analysis, nuanced reasoning, long context, safety</td><td>Often ranked #1 on coding benchmarks. Extended thinking mode for complex tasks.</td></tr>
+<tr><td>Gemini 2.0 / Ultra</td><td>Google DeepMind</td><td>Multimodal, integration with Google services, long context</td><td>Native image/audio understanding; strong on Search integration</td></tr>
+<tr><td>LLaMA 3 / 3.1</td><td>Meta</td><td>Open source — run locally, fine-tune freely</td><td>405B parameter version competitive with GPT-4. Changed the open-source AI landscape.</td></tr>
+<tr><td>Grok 3</td><td>xAI</td><td>Real-time web access, less restrictive</td><td>Built on massive compute cluster; integrates with X</td></tr>
+<tr><td>Mistral / Mixtral</td><td>Mistral AI</td><td>Efficient, open weights, European</td><td>MoE (Mixture of Experts) architecture — efficient inference</td></tr>
+<tr><td>DeepSeek R1</td><td>DeepSeek (China)</td><td>Reasoning, cost efficiency, open weights</td><td>Shocked the industry with competitive performance at far lower training cost</td></tr>
+</table>
+
+<h2>Prompting — Getting More Out of AI</h2>
+
+<table>
+<tr><th>Technique</th><th>What It Does</th><th>Example</th></tr>
+<tr><td>Zero-shot</td><td>Ask directly with no examples. Works surprisingly well for capable models.</td><td>"Summarize this earnings call in 3 bullet points."</td></tr>
+<tr><td>Few-shot</td><td>Provide examples of the desired input/output format before your real request.</td><td>Show 2-3 examples of how you want the output formatted, then give the real input.</td></tr>
+<tr><td>Chain-of-Thought (CoT)</td><td>Ask the model to "think step by step" before answering. Dramatically improves reasoning accuracy.</td><td>"Let's think through this step by step..." or just end with "Think carefully before answering."</td></tr>
+<tr><td>Role / Persona</td><td>Tell the model who to be. Changes the framing and expertise level.</td><td>"You are an expert portfolio manager analyzing this 10-K..."</td></tr>
+<tr><td>System Prompt</td><td>Instructions baked in before the conversation. Sets behavior, tone, constraints.</td><td>Used by developers building products; the "hidden instructions" behind every AI product</td></tr>
+<tr><td>RAG (Retrieval Augmented Generation)</td><td>Feed the model relevant documents as context to ground its answers in real data.</td><td>Claude searching your PDFs before answering a question about them</td></tr>
+</table>
+
+<h1>AI Training — The Big Picture</h1>
+
+<h2>Scaling Laws</h2>
+<p>OpenAI researchers found in 2020 (Kaplan et al.) that model performance scales predictably with three things: compute, data, and model size — following power laws. This was the green light to keep scaling. Chinchilla (DeepMind, 2022) refined this: you should scale data and model size proportionally, not just throw more parameters at it.</p>
+
+<h2>Training Infrastructure</h2>
+<table>
+<tr><th>Component</th><th>What It Is</th><th>Who Dominates</th></tr>
+<tr><td>GPUs (H100, B200)</td><td>The workhorse of AI training. Parallelizes matrix math at massive scale.</td><td>NVIDIA — ~80% market share in AI chips</td></tr>
+<tr><td>TPUs (Tensor Processing Units)</td><td>Google's custom AI chips. Proprietary — only available through Google Cloud.</td><td>Google</td></tr>
+<tr><td>AI Clusters</td><td>Thousands of GPUs connected at high bandwidth for distributed training.</td><td>Microsoft/OpenAI, Google, Meta, Amazon, CoreWeave</td></tr>
+<tr><td>Cloud AI Platforms</td><td>AWS (Bedrock), Azure OpenAI, GCP Vertex AI, Anthropic API</td><td>AWS, Azure, GCP</td></tr>
+</table>
+
+<h1>The AI Industry Map</h1>
+
+<h2>The Stack</h2>
+<table>
+<tr><th>Layer</th><th>What It Is</th><th>Key Players</th></tr>
+<tr><td>Chips / Hardware</td><td>The foundational constraint. Training requires enormous compute.</td><td>NVIDIA, AMD, Google (TPU), Intel Gaudi, Cerebras, Groq</td></tr>
+<tr><td>Cloud Compute</td><td>Renting GPU/TPU clusters by the hour for training and inference.</td><td>AWS, Azure, GCP, CoreWeave, Lambda Labs</td></tr>
+<tr><td>Foundation Models</td><td>The large pre-trained models that everything is built on.</td><td>OpenAI, Anthropic, Google, Meta, Mistral, Cohere</td></tr>
+<tr><td>Developer Tools / Infra</td><td>APIs, orchestration, vector databases, fine-tuning platforms.</td><td>LangChain, Hugging Face, Pinecone, Weights &amp; Biases, Modal</td></tr>
+<tr><td>Applications</td><td>Products built on top of foundation models. Where most value will accumulate for users.</td><td>GitHub Copilot, Cursor, Perplexity, Harvey (legal), Eleos (therapy), Klarna (CS)</td></tr>
+</table>
+
+<h2>Key AI Safety Concepts</h2>
+
+<table>
+<tr><th>Concept</th><th>What It Is</th></tr>
+<tr><td>Alignment</td><td>Making AI systems do what humans intend. A model can be capable but misaligned (pursues the wrong objective).</td></tr>
+<tr><td>Interpretability</td><td>Understanding why a model does what it does. Current models are largely black boxes. Anthropic, DeepMind, and academia are working on this.</td></tr>
+<tr><td>Constitutional AI</td><td>Anthropic's technique: give the model a set of principles and have it self-critique against them. Less reliance on human raters.</td></tr>
+<tr><td>AI Risk (Long-term)</td><td>Debate between those concerned about superintelligent AI pursuing goals misaligned with humans ("p(doom)" crowd) and those focused on near-term harms (bias, misuse, surveillance).</td></tr>
+<tr><td>AI Governance</td><td>US EO on AI, EU AI Act, voluntary commitments by frontier labs. Rapidly evolving. Who regulates AI and how is one of the biggest policy questions of the decade.</td></tr>
+</table>
+
+<h1>What to Watch / Learn</h1>
+
+<table>
+<tr><th>Resource</th><th>Type</th><th>Link / Where to Find</th></tr>
+<tr><td>Attention Is All You Need (2017)</td><td>Foundational paper — the Transformer</td><td><a href="https://arxiv.org/abs/1706.03762">arxiv.org/abs/1706.03762</a></td></tr>
+<tr><td>LLMs Survey (Minaee et al., 2024)</td><td>Comprehensive survey paper</td><td><a href="https://arxiv.org/abs/2402.06196">arxiv.org/abs/2402.06196</a></td></tr>
+<tr><td>Andrej Karpathy — Let's build GPT</td><td>YouTube — best technical intro to LLMs</td><td>Search "Karpathy Let's build GPT" on YouTube (~1.5 hrs)</td></tr>
+<tr><td>3Blue1Brown — Neural Networks</td><td>YouTube — visual intuition for how NNs work</td><td>Search "3blue1brown neural networks" (playlist)</td></tr>
+<tr><td>fast.ai</td><td>Free online course — practical deep learning</td><td><a href="https://fast.ai">fast.ai</a></td></tr>
+<tr><td>AI News: The Rundown AI</td><td>Daily newsletter</td><td><a href="https://www.therundown.ai">therundown.ai</a></td></tr>
+<tr><td>Lex Fridman Podcast</td><td>Long-form interviews with AI researchers (Musk, Altman, Lecun, Hinton)</td><td><a href="https://lexfridman.com/podcast">lexfridman.com/podcast</a></td></tr>
+<tr><td>Anthropic Research Blog</td><td>Primary source on interpretability and safety</td><td><a href="https://anthropic.com/research">anthropic.com/research</a></td></tr>
+</table>

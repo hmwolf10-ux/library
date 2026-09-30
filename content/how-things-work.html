@@ -1,0 +1,102 @@
+<p><em>Technology · Physics · The Internet · Cars · Money · Medicine · Everyday Systems</em></p>
+<p>Understanding how the things around you actually work — not just using them — is a massive advantage. It lets you debug problems, make better decisions, and see through BS.</p>
+
+<h1>How the Internet Works</h1>
+
+<table>
+<tr><th>Concept</th><th>What It Is</th><th>Analogy</th></tr>
+<tr><td>IP Address</td><td>Unique numerical address for every device on a network. IPv4: 192.168.1.1. IPv6: longer, for the massive expansion of devices.</td><td>Street address — tells the network where to deliver data</td></tr>
+<tr><td>DNS (Domain Name System)</td><td>Translates domain names (google.com) into IP addresses. The "phone book" of the internet.</td><td>When you look up someone's name in contacts to get their phone number</td></tr>
+<tr><td>HTTP / HTTPS</td><td>Protocol for sending web pages. HTTP = unsecured. HTTPS = encrypted (TLS). The S matters — all data is encrypted in transit.</td><td>HTTP is a postcard (anyone can read it). HTTPS is a sealed envelope.</td></tr>
+<tr><td>TCP/IP</td><td>The foundational protocol suite. IP handles addressing and routing. TCP ensures reliable, ordered delivery of data packets.</td><td>IP = postal system (routing). TCP = delivery confirmation + error correction.</td></tr>
+<tr><td>Packet Switching</td><td>Data is broken into small packets, each routed independently across the network, then reassembled at the destination.</td><td>Breaking a book into pages and mailing each separately via different routes — reassembled when they all arrive</td></tr>
+<tr><td>CDN (Content Delivery Network)</td><td>Network of servers worldwide that cache static content (images, videos) close to users. Why Netflix doesn't run from one server — content is cached near you.</td><td>Local warehouses that stock popular products vs. shipping everything from one central facility</td></tr>
+<tr><td>Server vs. Client</td><td>Client (your browser) requests resources. Server processes requests and returns responses. The internet is built on this request-response model.</td><td>You (client) order food (request). Restaurant (server) cooks and delivers (response).</td></tr>
+<tr><td>APIs</td><td>Application Programming Interface — a defined way for software to talk to other software. When you sign in with Google, that website is calling Google's API.</td><td>An electrical outlet — a standardized interface that anything can plug into</td></tr>
+<tr><td>Cloud Computing</td><td>Renting computing resources (servers, storage, databases) on demand instead of owning them. AWS, Azure, GCP are the big three.</td><td>Renting a car vs. owning one — you use it when needed, pay per use, don't maintain it</td></tr>
+</table>
+
+<h1>How a Computer Works</h1>
+
+<table>
+<tr><th>Component</th><th>What It Does</th><th>Analogy</th></tr>
+<tr><td>CPU (Central Processing Unit)</td><td>The brain. Executes instructions — math, logic, control operations. Modern CPUs do billions of operations per second (GHz = billion cycles/second).</td><td>The chef — does the actual work</td></tr>
+<tr><td>RAM (Random Access Memory)</td><td>Short-term working memory. Stores what you're actively using. Fast access. Clears when you turn off the computer. More RAM = more things open at once without slowing down.</td><td>Your desk — what you're actively working on right now</td></tr>
+<tr><td>Storage (SSD / HDD)</td><td>Long-term memory. Files persist here. SSD (solid-state) is much faster than HDD (spinning disk).</td><td>Your filing cabinet — everything stored long-term</td></tr>
+<tr><td>GPU (Graphics Processing Unit)</td><td>Handles parallel computations — originally graphics, now also AI/ML training. Thousands of simple cores vs. CPU's few powerful ones.</td><td>An assembly line — thousands of workers doing one simple thing simultaneously</td></tr>
+<tr><td>OS (Operating System)</td><td>Software that manages hardware resources and provides services to applications. macOS, Windows, Linux.</td><td>The building manager — allocates offices (resources) to tenants (programs)</td></tr>
+<tr><td>Binary</td><td>Computers operate in binary (0s and 1s) because transistors have two states: on and off. All data — text, images, video — is ultimately 0s and 1s.</td><td>Light switches — only on or off, but billions of them arranged cleverly</td></tr>
+<tr><td>Cache</td><td>Ultra-fast memory built into the CPU itself. Stores the most frequently accessed data to avoid going to RAM (which is slower).</td><td>What you keep on your actual desk vs. in the file cabinet across the room</td></tr>
+</table>
+
+<h1>How Cars Work</h1>
+
+<h2>Internal Combustion Engine (ICE)</h2>
+
+<table>
+<tr><th>System</th><th>What It Does</th></tr>
+<tr><td>4-Stroke Cycle</td><td>Intake → Compression → Combustion → Exhaust. This sequence happens thousands of times per minute in each cylinder. 4 cylinders = this happening in sequence, offset to produce smooth power.</td></tr>
+<tr><td>Fuel System</td><td>Fuel pump pulls gas from tank, fuel injectors atomize it into the cylinder. Modern engines use direct injection for efficiency.</td></tr>
+<tr><td>Ignition System</td><td>Spark plugs ignite the compressed fuel-air mixture. Timing of the spark is computer-controlled (engine management system) for efficiency.</td></tr>
+<tr><td>Cooling System</td><td>Coolant circulates through the engine block, absorbs heat, passes through the radiator to dissipate it. Overheating = engine death.</td></tr>
+<tr><td>Transmission</td><td>Converts engine power to wheel torque. Automatic: shifts gears automatically using a torque converter and hydraulics. Manual: driver controls the clutch to engage/disengage the engine from the drivetrain.</td></tr>
+<tr><td>Brakes</td><td>Disc brakes: caliper squeezes pads against a rotor → friction → stopping force. ABS (Anti-lock Braking System) prevents wheel lockup in hard braking — faster stops, steering maintained.</td></tr>
+<tr><td>Suspension</td><td>Springs absorb bumps. Shock absorbers dampen spring oscillation (otherwise you'd bounce forever). Independent suspension on each wheel for better handling.</td></tr>
+</table>
+
+<h2>Electric Vehicles (EVs)</h2>
+
+<table>
+<tr><th>Component</th><th>EV Equivalent</th><th>Key Difference</th></tr>
+<tr><td>Engine</td><td>Electric motor</td><td>Instant torque (full torque at 0 RPM). Simpler — 20 moving parts vs. 200+ in ICE. No oil changes.</td></tr>
+<tr><td>Fuel tank</td><td>Lithium-ion battery pack</td><td>Charges at home overnight or at fast chargers (20–80% in 20–45 minutes). Degrades ~2–3% per year.</td></tr>
+<tr><td>Transmission</td><td>Single-speed reduction gear</td><td>No shifting — immediate power delivery across entire speed range</td></tr>
+<tr><td>Regenerative braking</td><td>Motor becomes generator when braking</td><td>Captures kinetic energy and turns it back into electricity. Extends range 10–15%.</td></tr>
+</table>
+
+<h1>How Planes Fly</h1>
+
+<table>
+<tr><th>Concept</th><th>How It Works</th></tr>
+<tr><td>Lift</td><td>Wings are curved on top, flat on bottom (airfoil shape). Air moving over the curved top must travel faster → lower pressure above the wing → higher pressure below → upward force (lift). Angle of attack also matters — tilting the wing increases lift up to the point of stall.</td></tr>
+<tr><td>Thrust</td><td>Jet engines: compress air, mix with fuel, ignite → hot gases expand rapidly out the back → reaction force pushes plane forward. Newton's third law.</td></tr>
+<tr><td>Drag</td><td>Aerodynamic resistance. Shape matters enormously — pointed nose, smooth surfaces, swept wings all reduce drag. Engine thrust must exceed drag to accelerate.</td></tr>
+<tr><td>Weight</td><td>Gravity. Lift must exceed weight for the plane to ascend. A 777 weighs ~300 tons fully loaded.</td></tr>
+<tr><td>Control Surfaces</td><td>Ailerons (roll), elevators (pitch), rudder (yaw). Moving these changes airflow and creates turning forces. Fly-by-wire: pilot inputs go to computer → computer moves actuators.</td></tr>
+<tr><td>Autopilot</td><td>Most modern flights are 95%+ flown by autopilot. ILS (Instrument Landing System) can land the plane in near-zero visibility. Pilots manage systems, monitor, and handle emergencies.</td></tr>
+</table>
+
+<h1>How Money is Created</h1>
+
+<table>
+<tr><th>Concept</th><th>How It Works</th></tr>
+<tr><td>Fractional Reserve Banking</td><td>Banks are only required to hold a fraction of deposits in reserve and can lend out the rest. A $1,000 deposit → bank lends $900 → that $900 is deposited elsewhere → lend $810 → etc. This creates $10,000+ of money from $1,000. Most "money" in existence is bank credit, not physical currency.</td></tr>
+<tr><td>Federal Reserve Creates Money</td><td>The Fed creates base money (reserves) by buying assets (Treasury bonds, MBS) from banks. Banks' reserve accounts at the Fed are credited — new money in the system. This is quantitative easing (QE).</td></tr>
+<tr><td>Inflation</td><td>More money chasing the same amount of goods = each dollar buys less. Hyperinflation (Weimar Germany, Zimbabwe) happens when money creation massively exceeds output growth. The Fed's 2% inflation target is designed to be low enough to not distort behavior but high enough to avoid deflation.</td></tr>
+<tr><td>Physical Currency</td><td>Less than 10% of "money" is physical bills and coins. The rest is digital — balances on servers. When the bank says you have $10,000, that's a ledger entry, not a vault of bills with your name on it.</td></tr>
+</table>
+
+<h1>How Your Body Works — Key Systems</h1>
+
+<table>
+<tr><th>System</th><th>What It Does</th><th>Key Facts</th></tr>
+<tr><td>Cardiovascular</td><td>Heart pumps blood through ~60,000 miles of blood vessels. Delivers oxygen and nutrients; removes waste.</td><td>Heart beats ~100,000 times/day. Blood makes a full circuit in ~60 seconds. Exercise grows the heart muscle (VO2 max).</td></tr>
+<tr><td>Nervous System</td><td>Brain + spinal cord (central) + peripheral nerves. Receives sensory info, processes it, coordinates motor responses. Neurons communicate via electrical signals and neurotransmitters.</td><td>~86 billion neurons. Neural signals travel up to 268 mph. Brain uses ~20% of your body's energy despite being 2% of body weight.</td></tr>
+<tr><td>Immune System</td><td>Innate immunity (fast, general) + adaptive immunity (slow, specific). White blood cells detect and destroy pathogens. Memory cells remember past infections.</td><td>Vaccines train adaptive immunity without infection. Auto-immune disorders = immune system attacks self. Inflammation is the innate immune response signal.</td></tr>
+<tr><td>Endocrine System</td><td>Hormones — chemical messengers. Insulin (blood sugar), cortisol (stress), testosterone/estrogen (sex/muscle), thyroid (metabolism), dopamine/serotonin (mood, reward).</td><td>Chronic stress = chronic cortisol = impaired sleep, immunity, cognition, fat storage. Sleep deprivation tanks testosterone ~15% in a week.</td></tr>
+<tr><td>Sleep</td><td>Not passive — active restoration. During sleep: memory consolidation (hippocampus → cortex transfer), cellular repair, hormones released (GH peaks in deep sleep), immune activity peaks.</td><td>REM: dreaming, emotional processing, creativity. NREM deep sleep: physical restoration, GH release. 7–9 hours is optimal for most. Consistent schedule matters more than total hours.</td></tr>
+</table>
+
+<h1>How Nuclear Power Works</h1>
+
+<p>Nuclear fission: heavy atoms (uranium-235, plutonium-239) are split by neutrons → release enormous energy + more neutrons → chain reaction. Controlled in a reactor (vs. uncontrolled in a bomb). Heat boils water → steam turns turbine → generates electricity. No CO₂ in operation. The safety debate is largely about waste storage and catastrophic failure risk (Chernobyl, Fukushima — both anomalies with specific failure modes).</p>
+<p>Nuclear produces more CO₂-free electricity per land area than any other source. France gets ~70% of electricity from nuclear. The US gets ~20%.</p>
+
+<h1>How Vaccines Work</h1>
+
+<p>Vaccines introduce an antigen (piece of pathogen or instruction to make one) to train the adaptive immune system without causing disease. B cells produce antibodies specific to that antigen; T cells learn to destroy infected cells. Memory cells persist for years or decades. If you later encounter the real pathogen, the immune system responds fast enough to neutralize it before you get seriously sick.</p>
+<p>mRNA vaccines (Pfizer, Moderna COVID) — new as a mass vaccine but the technology was 30+ years in development. mRNA gives cells instructions to make a protein (spike protein) that the immune system recognizes as foreign. The mRNA degrades in days and never interacts with DNA.</p>
+
+<h1>How GPS Works</h1>
+
+<p>GPS: 24–31 satellites in medium Earth orbit, each broadcasting precise time signals. Your phone receives signals from 4+ satellites simultaneously. Knowing the speed of light and the time delay from each satellite, it calculates the distance to each. The intersection of 4+ spheres = your exact location. Accuracy: ~5 meters civilian GPS, centimeters with augmentation systems.</p>
